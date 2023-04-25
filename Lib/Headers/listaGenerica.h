@@ -22,9 +22,15 @@ typedef struct
     NODE *head;
     NODE *tail;
 }ListaGenerica, LG;
+/*
+typedef struct
+{
+    int height;
+    NO_TREE *Root;
+}TREE; */
 
 ListaGenerica *CriarLG();
-void DestruirLG(ListaGenerica *lg, void (*fdest)(void *));
+void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t);
 void ShowLG(ListaGenerica *lg, void (*f)(void *));
 void AddLGFim(ListaGenerica *lg, void *X); // add stack
 void AddLGInicio(ListaGenerica *lg, void *X);

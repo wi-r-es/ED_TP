@@ -1,6 +1,6 @@
 #include "Headers/queue.h"
 
-#define MAX_SIZE 10
+
 
 extern void *ec_malloc(unsigned int size);
 
@@ -57,21 +57,21 @@ void *deQueue(LG *lg)
     if (isEmptyQueue(lg))
     {
         printf("Error: Qeueu is empty");
-        return;
+        return NULL;
     }
 
     NODE *aux = lg->head;
 
     lg->head = lg->head->next;
 
-    // If front becomes NULL, then change rear also as NULL
+    // If front becomes NULL, then change tail also as NULL
     if (lg->head == NULL)
         lg->tail = NULL;
 
-    void *c = aux->info;
+    void *_el = aux->info;
     lg->NEL--;
     free(aux);
-    return c;
+    return _el;
 }
 
 

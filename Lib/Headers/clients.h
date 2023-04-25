@@ -7,12 +7,14 @@
 #include "produto.h"
 
 
+
 typedef struct CLIENTE {
     int ID;
     //char ID[6+1];
     char *name;
     unsigned int inQueue :1 ;
-    ListaGenerica *carrinho;
+    unsigned int inSuper :1 ;
+    LG *carrinho; // LISTA GENERICA
     int tempo_medio_espera;
 
    // struct Client *next;
@@ -28,7 +30,6 @@ int compClient(void *x, void *y);
 int SearchClient(void *c, void *_id);
 int SearchClientByName(void *c, void *_name);
 int getIdClient(void *c);
-
 void EntrarSuper(void *c);
 //int PertenceClient(CLIENTE *c, void *X, int (*fcomp)(void *, void *));
 

@@ -15,7 +15,7 @@ ListaGenerica *CriarLG()
     logging(logging_file, __FUNCTION__, "GenericList Created");
     return L;
 }
-void DestruirLG(ListaGenerica *lg, void (*fdest)(void *)) //fdest pointer to function
+void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t) //fdest pointer to function
 {
     logging(logging_file, __FUNCTION__, "Deleting genericList");
     if (!lg) return;
@@ -24,7 +24,7 @@ void DestruirLG(ListaGenerica *lg, void (*fdest)(void *)) //fdest pointer to fun
     while(p)
     {
         aux = p->next;
-        fdest(p->info); // pointer to the function to clear the info inside LG
+        if (t == 1) fdest(p->info); // pointer to the function to clear the info inside LG
         free(p);
         p = aux;
     }

@@ -26,6 +26,7 @@ typedef struct
 HASHING *CriarHASHING(char *str);
 void DestruirHASHING(HASHING *H);
 void ShowHASHING(HASHING *H);
+void ShowFaixa(HASHING *H, int p);
 int AddHASHING(HASHING *H, void *c);
 int FuncaoHASHING(HASHING *H, void *c);
 void LoadHashingFromLinkedList(HASHING *hash_table, LG *C);

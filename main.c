@@ -5,10 +5,12 @@
 
 extern void logging(char* datafile, char *funcname, char *info);
 extern char *logging_file;
+extern int getRandomInt(int min, int max);
 
 void LoadConfigs(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX, char *l);
+SM *LoadSuper(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX, HASHING *hc, treeNode *r);
+SM *INIT__();
 void FreeMem(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P);
-SM *LoadSuper(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX);
 int FreeAllMemory(SM *s);
 //const to prevent accidental modification of data
 int cmpChar(const void* a, const void* b);
@@ -18,37 +20,21 @@ int main()
     clock_t start_t, end_t;
     start_t = clock();
 
-    //Initializing vars to use during simulation
-    ListaGenerica *LC = CriarLG();
-    ListaGenerica *LF = CriarLG();
-    ListaGenerica *LP = CriarLG();
-    ListaGenerica *LCX = CriarLG();
 
-    //variable to compute hash later
-    char *letras = malloc(27 * sizeof(char));
-    LoadConfigs(LC, LF, LP, LCX, letras);
-    SM *super = LoadSuper(LC, LF, LP, LCX);
-/*
-    printf("\n\r[%d]#", strlen(letras));
-    for(int i=0; i< strlen(letras); i++){
-        printf("\n\r[%c]#", letras[i]);
+    SM *supermarket=INIT__();
+
+    int randItems = getRandomInt(1,10);
+    for(int i=0; i<randItems; i++)
+    {
+//        treeNode *random= SelectRandomNode(root);
+
     }
-*/
-    // sort the "array
-    qsort(letras, strlen(letras), sizeof(char), cmpChar);
-    HASHING *hash_table = CriarHASHING(letras);
-    //void *ptr = LC->head->info;
-    //ShowClient(ptr);
-    //AddHASHING(hash_table, ptr);
-    LoadHashingFromLinkedList(hash_table, LC);
-    //ShowHASHING(hash_table);
 
 
 
+    ShowLG(supermarket->caixas, ShowCaixa);
 
-    //ShowLG(LC, ShowClient);
-    ShowLG(LCX, ShowCaixa);
-    int r= FreeAllMemory(super);
+    int r= FreeAllMemory(supermarket);
     if(r)
         logging(logging_file, __FUNCTION__, "Memory Freed");
     else
@@ -79,14 +65,61 @@ void LoadConfigs(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGene
     GenerateBoxes(CX);
     logging(logging_file, __FUNCTION__, "Supermarket configs loaded");
 }
-SM *LoadSuper(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX)
+SM *LoadSuper(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX, HASHING *hc, treeNode *r)
 {
     logging(logging_file, __FUNCTION__, "Creating Supermarket struct");
     char *sm_name="SUPERMERCADOS NOVA";
-    SM *s = CriarSM(sm_name,C,F,P,CX);
+    SM *s = CriarSM(sm_name,C,F,P,CX, hc, r);
     return s;
     logging(logging_file, __FUNCTION__, "Created");
 }
+SM *INIT__()
+{
+    //Initializing vars to use during simulation
+    ListaGenerica *LC = CriarLG();
+    ListaGenerica *LF = CriarLG();
+    ListaGenerica *LP = CriarLG();
+    ListaGenerica *LCX = CriarLG();
+
+    //variable to compute hash later
+    char *letras = malloc(27 * sizeof(char));
+    LoadConfigs(LC, LF, LP, LCX, letras);
+    // sort the array
+    qsort(letras, strlen(letras), sizeof(char), cmpChar);
+    HASHING *hash_table = CriarHASHING(letras);
+    free(letras);
+    LoadHashingFromLinkedList(hash_table, LC);
+    treeNode *_root = CreateTree(LP);
+    SM *sm = LoadSuper(LC, LF, LP, LCX,hash_table, _root );
+    simulateEntrance(sm);
+
+
+
+    return sm;
+
+}
+//void simulateEntrance()
+   //printf("%d --> %d", random->ID, random->height);
+
+    //InOrder(root);
+    //ShowProduct(LP->head->info);
+/*
+    printf("\n\r[%d]#", strlen(letras));
+    for(int i=0; i< strlen(letras); i++){
+        printf("\n\r[%c]#", letras[i]);
+    }
+*/
+
+
+        //void *ptr = LC->head->info;
+    //ShowClient(ptr);
+    //AddHASHING(hash_table, ptr);
+        //ShowHASHING(hash_table);
+
+
+
+
+    //ShowLG(LC, ShowClient);
 int FreeAllMemory(SM *s)
 {
     logging(logging_file, __FUNCTION__, "Freeing all memory");
@@ -95,9 +128,9 @@ int FreeAllMemory(SM *s)
 }
 void FreeMem(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P)
 {
-    DestruirLG(C, DestruirClient);
-    DestruirLG(F, DestruirClient);
-    DestruirLG(P, DestruirClient);
+    DestruirLG(C, DestruirClient,1);
+    DestruirLG(F, DestruirClient,1);
+    DestruirLG(P, DestruirClient,1);
 }
 
 //const to prevent accidental modification of data

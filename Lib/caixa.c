@@ -4,7 +4,7 @@
 
 extern void *ec_malloc(unsigned int size);
 extern int ger_rand(int min, int max);
-
+extern int getRandomInt(int min, int max) ;
 
 
 BOX *CriarCaixa(char _id)
@@ -23,7 +23,8 @@ BOX *CriarCaixa(char _id)
 
 void GenerateBoxes(LG *lcx)
 {
-    int ger = ger_rand(3,10);
+    int ger = getRandomInt(3,10);
+    //printf("[%d]\n", ger);
     char id_caixa='A';
 
     for(int i=0; i<ger; i++){
@@ -63,6 +64,14 @@ void setEmployerTo(void *b, void *e)
     BOX *B = (BOX *) b;
     B->funcionario = E;
 
+}
+
+int getStatus(void *b)
+{
+    if(!b)
+        return;
+    BOX *B = (BOX *) b;
+    return B->status;
 }
 void openCaixa(void *b)
 {

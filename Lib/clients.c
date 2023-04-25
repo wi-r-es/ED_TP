@@ -14,7 +14,7 @@ Client *CriarClient(int _id, char * _name)
     if(!C)
     {
         fatal("in CriarClient(), allocation for client failed... ");
-        return;
+        return NULL;
     }
 
     C->ID = _id;
@@ -23,12 +23,13 @@ Client *CriarClient(int _id, char * _name)
     if(!C->name)
     {
         fatal("in CriarClient(), allocation for name in client failed... ");
-        return;
+        return NULL;
     }
 
     strcpy(C->name, _name);
     //printf("NM-> %s", C->name);
     C->inQueue=0;
+    C->inSuper=0;
     C->carrinho=NULL;
     C->tempo_medio_espera=0;
     //logging(logging_file, __FUNCTION__, "Client created");

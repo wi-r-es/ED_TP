@@ -65,6 +65,19 @@ int ger_rand(int min, int max)
 {
     return min + rand() % (max - min + 1);
 }
+//new ger random since other was was bias
+int getRandomInt(int min, int max)
+{
+    // Seed the random number generator with the current time
+    srand(time(NULL));
+
+    // Calculate the range size and generate a random offset
+    int range = max - min + 1;
+    int offset = rand() % range;
+
+    // Return the random number within the range
+    return min + offset;
+}
 
 
 #endif // UTILS_H_INCLUDED

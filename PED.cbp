@@ -35,6 +35,7 @@
 		<Unit filename="Files/I/funcionarios.txt" />
 		<Unit filename="Files/I/produtos.txt" />
 		<Unit filename="Lib/Headers/IO.h" />
+		<Unit filename="Lib/Headers/binarytree.h" />
 		<Unit filename="Lib/Headers/caixa.h" />
 		<Unit filename="Lib/Headers/clients.h" />
 		<Unit filename="Lib/Headers/funcionarios.h" />
@@ -44,6 +45,9 @@
 		<Unit filename="Lib/Headers/queue.h" />
 		<Unit filename="Lib/Headers/supermercado.h" />
 		<Unit filename="Lib/IO.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/binarytree.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Lib/caixa.c">
