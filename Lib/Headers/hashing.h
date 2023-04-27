@@ -7,6 +7,9 @@
 #include "listaGenerica.h"
 #include "clients.h"
 
+//FOR TESTING
+#include "IO.h"
+
 /*
 #define NUM_ENTRADAS 27 //Letras no alfabeto +1
 */
@@ -30,6 +33,7 @@ void ShowFaixa(HASHING *H, int p);
 int AddHASHING(HASHING *H, void *c);
 int FuncaoHASHING(HASHING *H, void *c);
 void LoadHashingFromLinkedList(HASHING *hash_table, LG *C);
+void *getElementInFaixa_Pos(HASHING *hash_table, int f, int p);
 
 
 

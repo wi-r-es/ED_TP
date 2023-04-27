@@ -44,6 +44,7 @@
 		<Unit filename="Lib/Headers/produto.h" />
 		<Unit filename="Lib/Headers/queue.h" />
 		<Unit filename="Lib/Headers/supermercado.h" />
+		<Unit filename="Lib/Headers/utils.h" />
 		<Unit filename="Lib/IO.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -74,10 +75,10 @@
 		<Unit filename="Lib/supermercado.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="main.c">
+		<Unit filename="Lib/utils.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="utils.c">
+		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions />

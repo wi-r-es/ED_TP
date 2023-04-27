@@ -8,14 +8,14 @@ Product *CriarProduct(int _id, char * _name, double _price, char * _marca, char 
     if(!P)
     {
         fatal("in CriarProduct(), allocation for product failed... ");
-        return;
+        return NULL;
     }
     P->COD = _id;
     P->name = (char *)ec_malloc(strlen(_name) + 1);
     if(!P->name)
     {
         fatal("in CriarProduct(), allocation for name in product failed... ");
-        return;
+        return NULL;
     }
     strcpy(P->name, _name);
     P->preco = _price;
@@ -23,14 +23,14 @@ Product *CriarProduct(int _id, char * _name, double _price, char * _marca, char 
     if(!P->marca)
     {
         fatal("in CriarProduct(), allocation for marca in product failed... ");
-        return;
+        return NULL;
     }
     strcpy(P->marca, _marca);
     P->extra_info = (char *)ec_malloc(strlen(_info)+1);
     if(!P->extra_info)
     {
         fatal("in CriarProduct(), allocation for extra_info in product failed... ");
-        return;
+        return NULL;
     }
     strcpy(P->extra_info,_info);
     P->TCOMPRA = _tcp;
@@ -83,6 +83,19 @@ int SearchProduct(void *p, void *_ID)
 
 int getIdProduct(void *p)
 {
+    if(!p) return -2;
     Product *P = (Product *)p;
     return P->COD;
+}
+float getProductTimeToGet(void *p)
+{
+    if(!p) return -2;
+    Product *P = (Product *)p;
+    return P->TCOMPRA;
+}
+float getProductTimeToBuy(void *p)
+{
+    if(!p) return -2;
+    Product *P = (Product *)p;
+    return P->TCAIXA;
 }

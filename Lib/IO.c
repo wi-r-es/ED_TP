@@ -2,6 +2,7 @@
 
 extern void logging(char* datafile, char *funcname, char *info);
 extern char *logging_file;
+extern void fatal(char *message);
 
 char *clients_file="Files/I/clientes.txt";
 char *employees_file="Files/I/funcionarios.txt";
@@ -47,9 +48,12 @@ void Load_Client(LG *LC, char *letras)
         CLIENTE *C = CriarClient(ID, NAME);
         //ShowClient(C);
         //DestruirClient(C);
-        AddLGInicio(LC, C);
+        if(!C)
+            printf("ERROR client element wasnt successfully created...");
+        else
+            AddLGInicio(LC, C);
 
-        char first_char = toupper(NAME[1]);
+        char first_char = toupper(NAME[0]);
         //stores the char if its not already in the array
 
         if(isalpha(first_char))
@@ -67,6 +71,7 @@ void Load_Client(LG *LC, char *letras)
             {
                 //first use the var then increments
                 letras[letra_count++] = first_char;
+                //printf("Letra not int hash-> [%c] -- NAME ->[%s]\n", first_char, NAME);
             }
         }
 
@@ -214,21 +219,34 @@ void Load_Produtos(LG *LP)
 //for test purposes
 void writeToFile(char *b)
 {
-    char *datafile = "testHash";
-        int fd ;//= create(datafile, mode_t mode)
+    char *datafile = "newTEST";
+    int fd ;//= create(datafile, mode_t mode)
 
-        fd = open(datafile, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
-        char *s=strcat(b, "\n");
-        //printf("%d", fd);
-        if (fd == -1)
-            fatal("in main() while opening file");
-        //printf("[DEBUG] file descriptor is %d\n",fd);
-        //writting file
-        if( write(fd, s, strlen(s)) == -1)
-            fatal("in main() while writting buffer to file");
-        //closing file
-        if (close(fd) == -1)
-            fatal("in main() while closing file");
+    fd = open(datafile, O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
+    char *s=strcat(b, "\n");
+    //printf("%d", fd);
+    if (fd == -1)
+        fatal("in main() while opening file");
+    //printf("[DEBUG] file descriptor is %d\n",fd);
+    //writting file
+    if( write(fd, s, strlen(s)) == -1)
+        fatal("in main() while writting buffer to file");
+    //closing file
+    if (close(fd) == -1)
+        fatal("in main() while closing file");
+}
+
+void writeTesting(char *datafile, char *funcname, char *info)
+{
+    if( !funcname || !info ) return;
+    if (datafile==NULL)
+        datafile = "testingHashing.txt";
+    //printf("%s",datafile);
+    FILE *F = fopen(datafile, "a");
+    if (!F)
+        return;
+    fprintf(F, "%s,%s,[EXECUTING_FUNCTION]: %s,[SHORT-BRIEF]: %s\n",__DATE__,__TIME__, funcname, info);
+    fclose(F);
 }
 
 

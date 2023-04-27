@@ -10,6 +10,10 @@
 #include "queue.h"
 #include "hashing.h"
 #include "binarytree.h"
+#include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct SUPERMERCADO {
     char *COMPANY;
@@ -22,8 +26,8 @@ typedef struct SUPERMERCADO {
 }Supermercado, SM;
 
 SM *CriarSM(char *_name, LG *C, LG *E, LG *P, LG *CX, HASHING *hc, treeNode *r);
-void DestruirSM(SM *s);
-void ShowSM(void *s);
+void DestruirSM(SM *sm);
+void ShowSM(SM *sm);
 void queueing(LG *cx, void *C); // for clients
 void getItems(void *c);
 //int compSM(void *x, void *y);

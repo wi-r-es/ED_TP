@@ -8,7 +8,7 @@ ListaGenerica *CriarLG()
 {
     logging(logging_file, __FUNCTION__, "Creating genericList");
     ListaGenerica *L = (ListaGenerica *)ec_malloc(sizeof(ListaGenerica));
-    if (!L) return;
+    if (!L) return NULL;
     L->head = NULL;
     L->tail = NULL;
     L->NEL = 0;
@@ -18,7 +18,7 @@ ListaGenerica *CriarLG()
 void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t) //fdest pointer to function
 {
     logging(logging_file, __FUNCTION__, "Deleting genericList");
-    if (!lg) return;
+    if (!lg) return NULL;
     NODE *p = lg->head;
     NODE *aux;
     while(p)
@@ -48,9 +48,11 @@ void ShowLG(ListaGenerica *lg, void (*f)(void *))
 void AddLGInicio(ListaGenerica *lg, void *X) // Adiciona elementos segundo uma pilha/stack
 {
     //logging(logging_file, __FUNCTION__, "Adding to head-genericList");
-    if (!lg || !X) return;
+    if (!lg || !X)
+        return;
     NODE *p = (NODE *)ec_malloc(sizeof(NODE));
-    if (!p) return;
+    if (!p)
+        return;
     p->next = lg->head;
     p->prev = NULL;
     p->info = X;
@@ -64,6 +66,7 @@ void AddLGFim(LG *lg, void *x) //Adicionar no fim
     //logging(logging_file, __FUNCTION__, "Adding to tail-genericList");
     if (!lg || !x)
         return;
+    /*
     NODE *aux = (NODE *)ec_malloc(sizeof(NODE));
     if (!aux)
         return;
@@ -83,6 +86,23 @@ void AddLGFim(LG *lg, void *x) //Adicionar no fim
             iterator = iterator->next;
         iterator->next = aux;
         aux->prev = iterator;
+    }
+    lg->NEL++; */
+
+    NODE *aux = (NODE *)ec_malloc(sizeof(NODE));
+    if (!aux)
+        return ; // Erro de alocacao de memoria before it returned -4
+    aux->info = x;
+    aux->next = NULL;
+    if (!lg->head)
+        lg->head=aux;
+    else
+    {
+        NODE *iterator = lg->head;
+        while (iterator->next)
+            iterator = iterator->next;
+        iterator->next = aux;
+        lg->tail = aux;
     }
     lg->NEL++;
     //logging(logging_file, __FUNCTION__, "Adding successfull");
@@ -104,7 +124,8 @@ int PertenceLG(ListaGenerica *lg, void *X, int (*fcomp)(void *, void *))
 void* SearchLG(LG *lg, void *key, int (*fsearch)(void*, void*))
 {
     //logging(logging_file, __FUNCTION__, "Searching for given element belongs in list");
-    if (!lg || !key) return NULL;
+    if (!lg || !key)
+        return NULL;
     NODE *p = lg->head;
     while(p)
     {

@@ -6,6 +6,9 @@
 #include "funcionarios.h"
 #include "produto.h"
 #include "listaGenerica.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include <fcntl.h>
 
@@ -16,7 +19,7 @@ void Load_Produtos(LG *LP);
 
 //for tests purposes
 void writeToFile(char *b);
-
+void writeTesting(char *datafile, char *funcname, char *info);
 
 
 

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "listaGenerica.h"
+#include "utils.h"
 #define MAX_SIZE 10
 
 int isEmptyQueue(LG *lg);

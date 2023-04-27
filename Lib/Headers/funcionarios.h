@@ -2,8 +2,9 @@
 #define FUNCIONARIOS_H_INCLUDED
 
 #include <stdlib.h>
-#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
+#include "utils.h"
 
 
 typedef struct FUNCIONARIO{

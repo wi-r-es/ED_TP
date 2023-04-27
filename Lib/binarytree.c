@@ -1,7 +1,6 @@
 #include "Headers/binarytree.h"
 
-extern void *ec_malloc(unsigned int size);
-extern int getRandomInt(int min, int max);
+
 
 int max( int a, int b)
 {
@@ -11,7 +10,7 @@ int max( int a, int b)
 int Height(treeNode *root)
 {
     if(!root)
-        return -1;
+        return -2;
     return root->height;
 }
 
@@ -33,17 +32,22 @@ treeNode *FindMax(treeNode *root)
 	else return FindMax(root->right);
 }
 
-treeNode *Find (treeNode *root, void *p)
-{
-    if (!root || !p)
-		return NULL;
-    int data = ((Product *)p)->COD;
-	if (data < root->ID)
-		return Find(root->left, data);
-	else if (data>root->ID)
-		return Find(root->right, data);
-	return root;
-}
+
+// ############################################
+// NOT USED YET NEED TOO TEST!!!!!!!!!!!!   //#
+treeNode *Find (treeNode *root, void *p)    //#
+{                                           //#
+    if (!root || !p)                        //#
+		return NULL;                        //#
+    int data = ((Product *)p)->COD;        //#
+    //void *data = &_data;                    //#
+	if (data < root->ID)                    //#
+		return Find(root->left, p);      //#
+	else if (data>root->ID)                 //#
+		return Find(root->right, p);     //#
+	return root;                            //#
+}                                           //#
+//############################################
 
 treeNode *SingleRotateLeft(treeNode *X)
 {
@@ -101,6 +105,7 @@ treeNode *Insert(treeNode *root, void *p)
     if(!p)
     {
         fatal("Null pointer given...");
+        return NULL;
     }
     //Product
     int _id = ((Product *)p)->COD;
@@ -158,10 +163,19 @@ treeNode *CreateTree(LG *P)
     }
     return root;
 }
+void DestructTree(treeNode *root)
+{
+    if(!root)
+        return;
+    DestructTree(root->left);
+    DestructTree(root->right);
+    free(root);
+}
 
 int SubTreeSize(treeNode *root) {
-    if (!root) {
-        return 0;
+    if (!root)
+    {
+        return -2;
     }
     return 1 + SubTreeSize(root->left) + SubTreeSize(root->right);
 }
@@ -171,9 +185,10 @@ treeNode *SelectRandomNode(treeNode *root)
     if(!root)
     {
         fatal("Null pointer given...");
+        return NULL;
     }
     int size = SubTreeSize(root);
-    printf("[%d]\n\n", size);
+    //printf("[%d]\n\n", size);
 
     int choice = getRandomInt(1, size);
     int left_size = SubTreeSize(root->left);

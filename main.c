@@ -20,8 +20,9 @@ int main()
     clock_t start_t, end_t;
     start_t = clock();
 
-
+    //printf("\nDEABUG !!!!!!");
     SM *supermarket=INIT__();
+    //printf("\nlalalalalaa !!!!!!");
 
     int randItems = getRandomInt(1,10);
     for(int i=0; i<randItems; i++)
@@ -29,10 +30,12 @@ int main()
 //        treeNode *random= SelectRandomNode(root);
 
     }
+    printf("SIM ENTRANCE");
+    simulateEntrance(supermarket);
+    printf("ENDENDEND");
 
-
-
-    ShowLG(supermarket->caixas, ShowCaixa);
+    //ShowHASHING(supermarket->clientsHash);
+    //ShowLG(supermarket->caixas, ShowCaixa);
 
     int r= FreeAllMemory(supermarket);
     if(r)
@@ -45,7 +48,7 @@ int main()
     printf("\vHello world!\n");
     end_t = clock();
     double total_t = (double) (end_t - start_t) / CLOCKS_PER_SEC;
-    char *str[50];
+    char str[50];
     sprintf(str, "Time to execute->%lf", total_t);
     //har *s="Time to execute->";
     //strcat(s,str);
@@ -58,10 +61,14 @@ int main()
 
 void LoadConfigs(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX, char *l)
 {
-    logging(logging_file, __FUNCTION__, "Loading supermarket configs");
+    logging(logging_file, __FUNCTION__, "Loading supermarket configs\n");
+    printf("Loading clients from file\n");
     Load_Client(C, l);
+    printf("Loading employees from file\n");
     Load_Funcionario(F);
+    printf("Loading produtos from file\n");
     Load_Produtos(P);
+    printf("generating boxes\n");
     GenerateBoxes(CX);
     logging(logging_file, __FUNCTION__, "Supermarket configs loaded");
 }
@@ -69,6 +76,7 @@ SM *LoadSuper(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGeneric
 {
     logging(logging_file, __FUNCTION__, "Creating Supermarket struct");
     char *sm_name="SUPERMERCADOS NOVA";
+    printf("Creating super from LL\n\n\n");
     SM *s = CriarSM(sm_name,C,F,P,CX, hc, r);
     return s;
     logging(logging_file, __FUNCTION__, "Created");
@@ -87,11 +95,13 @@ SM *INIT__()
     // sort the array
     qsort(letras, strlen(letras), sizeof(char), cmpChar);
     HASHING *hash_table = CriarHASHING(letras);
+    //for(int i=0; i<strlen(letras)+1; i++){
+    //printf("LETRAS in string : [%c]\n", letras[i]);}
     free(letras);
     LoadHashingFromLinkedList(hash_table, LC);
     treeNode *_root = CreateTree(LP);
     SM *sm = LoadSuper(LC, LF, LP, LCX,hash_table, _root );
-    simulateEntrance(sm);
+    //ShowHASHING(sm->clientsHash);
 
 
 

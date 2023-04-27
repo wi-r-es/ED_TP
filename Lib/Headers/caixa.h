@@ -8,6 +8,7 @@
 //#include "clients.h"
 #include "funcionarios.h"
 #include "listaGenerica.h"
+#include "utils.h"
 
 typedef struct CAIXA {
     unsigned int status : 1; //0 fechada | 1 aberta

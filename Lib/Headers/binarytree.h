@@ -3,8 +3,11 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
+
 #include "listaGenerica.h"
 #include "produto.h"
+#include "utils.h"
 
 typedef struct node
 {

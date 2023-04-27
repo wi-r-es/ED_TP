@@ -2,7 +2,7 @@
 
 
 extern void *ec_malloc(unsigned int size);
-int ger_rand(int min, int max);
+int getRandomInt(int min, int max);
 extern void logging(char* datafile, char *funcname, char *info);
 extern char *logging_file;
 
@@ -45,9 +45,16 @@ void DestruirClient(void *c)
 }
 void ShowClient(void *c)
 {
+    //printf("DEGUB0");
     CLIENTE *C = (CLIENTE *)c;
+    //printf("DEGUB1");
     printf("\n     [*]<%s>[*]\n", __FUNCTION__);
+    //printf("DEGUB2");
     printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", C->ID, C->name);
+    //writeTesting("testingHash.txt", __FUNCTION__, C->name);
+    //printf("DEGUB3");
+    printf("\t[ ]INQUEUE: [%d]\n\t[ ]INSUPER: [%d]\n", C->inQueue, C->inSuper);
+    //printf("DEGUB4");
 }
 int compClient(void *x, void *y)
 {
@@ -73,8 +80,8 @@ int SearchClient(void *c, void *_ID)
 int SearchClientByName(void *c, void *_name)
 {
     CLIENTE *C = (CLIENTE *)c;
-    char  *ptr_name = (char *)_name;
-    char key = C->name;
+    char *ptr_name = (char *)_name;
+    char *key = C->name;
     if (strcmp(key, ptr_name)){
         return 1;
     }
@@ -82,19 +89,38 @@ int SearchClientByName(void *c, void *_name)
 }
 int getIdClient(void *c)
 {
+    if(!c) return -2;
     CLIENTE *C = (CLIENTE *)c;
     return C->ID;
 }
 
 //void gerProdutos()
+void setEntry(void *c)
+{
+    if(!c)
+        return;
+    CLIENTE *C = (CLIENTE *)c;
+    C->inSuper=1;
+}
+void setDisentry(void *c)
+{
+    if(!c)
+        return;
+    CLIENTE *C = (CLIENTE *)c;
+    C->inSuper=0;
+}
 
+void ShowClientsInSuper(LG *lg)
+{
+
+}
 void EntrarSuper(void *c)
 {
     if (!c)
         return;
     CLIENTE *C = (CLIENTE *) c;
     C->carrinho = CriarLG();
-    int num_produtos = ger_rand(1,20);
+    int num_produtos = getRandomInt(1,20);
     //Funcao para randomizar escolha de produtos
     for(int i=0; i<num_produtos; i++)
     {

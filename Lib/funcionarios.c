@@ -1,6 +1,5 @@
 #include "Headers/funcionarios.h"
 
-extern void *ec_malloc(unsigned int size);
 
 Employee *CriarEmployee(int _id, char * _name)
 {
@@ -8,14 +7,14 @@ Employee *CriarEmployee(int _id, char * _name)
     if(!E)
     {
         fatal("in CriarEmployee(), allocation for Employee failed... ");
-        return;
+        return NULL;
     }
     E->ID = _id;
     E->name = (char *)ec_malloc(strlen(_name) + 1);
     if(!E->name)
     {
         fatal("in CriarEmployee(), allocation for name in Employee failed... ");
-        return;
+        return NULL;
     }
 
     E->working=0;

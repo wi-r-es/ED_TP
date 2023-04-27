@@ -2,10 +2,6 @@
 
 #define MINQUEUE=3
 
-extern void *ec_malloc(unsigned int size);
-extern int ger_rand(int min, int max);
-extern int getRandomInt(int min, int max) ;
-
 
 BOX *CriarCaixa(char _id)
 {
@@ -69,7 +65,7 @@ void setEmployerTo(void *b, void *e)
 int getStatus(void *b)
 {
     if(!b)
-        return;
+        return -2;
     BOX *B = (BOX *) b;
     return B->status;
 }
@@ -98,7 +94,7 @@ void closeCaixa_if_min_not_satisfied(void *b)
 int AddToQueue(void *b, void *c)
 {
     if(!b || !c)
-        return;
+        return -2;
     BOX *B = (BOX *) b;
     LG *q = B->QUEUE;
     return enQueue(q,c);

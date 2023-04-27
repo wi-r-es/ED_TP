@@ -1,20 +1,10 @@
-#ifndef UTILS_H_INCLUDED
-#define UTILS_H_INCLUDED
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <string.h>
-
+#include "Headers/utils.h"
 char *logging_file="Files/O/logs.csv";
 
 //Logging function
 
 void logging(char *datafile, char *funcname, char *info)
 {
-
-
     if( !funcname || !info ) return;
     if (datafile==NULL)
         datafile = "default.csv";
@@ -42,12 +32,12 @@ void *ec_malloc(unsigned int size) {
    ptr = malloc(size);
    //ptr=NULL;
     if(ptr == NULL)
-      fatal("in ec_malloc() on memory allocation");
+    {
+        fatal("in ec_malloc() on memory allocation");
+        return NULL;
+    }
 
-   /*
-   if(ptr == NULL)
-      fatal("in ec_malloc() on memory allocation");
-   return ptr; */
+   return ptr;
 }
 void wait ( int mlseconds )
 {
@@ -80,5 +70,3 @@ int getRandomInt(int min, int max)
     return min + offset;
 }
 
-
-#endif // UTILS_H_INCLUDED
