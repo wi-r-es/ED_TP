@@ -44,19 +44,25 @@ void ShowHASHING(HASHING *H)
     for (int i = 0; i < H->NEL; i++)
     {
         ShowFaixa(H, i);
+        //printf("\n\tFAIXAAAAA-> [%c]", i);
+
     }
+    getchar();
 }
 void ShowFaixa(HASHING *H, int p)
 {
     if (!H) return;
+    /*
     //printf("FUNCAO: <%s>\n", __FUNCTION__);
     printf("\n[*]<%s>[*]\n", __FUNCTION__);
     printf("\n\r   @FAIXA: [%c]\n", (H->DADOS + p) -> Faixa);
     //if((H->DADOS + i)->Clientes)
-    LG *lg = (H->DADOS + p) -> Clientes;
+    */
 
+    LG *lg = (H->DADOS + p) -> Clientes;
+    printf("\n\tHASHING [%c] -> NEL-> [%d]\n",(H->DADOS+p) -> Faixa  ,lg->NEL );
     //printf("\n\r%p", lg->head);
-    ShowLG( lg ,ShowClient);
+    //ShowLG( lg ,ShowClient);
     //printf("FAIXA _> %d     ------- LETRA %c \n", p, (H->DADOS + p) -> Faixa) ; // a imprimir valor estranho na faixa ....
 }
 int AddHASHING(HASHING *H, void *c)
@@ -65,12 +71,14 @@ int AddHASHING(HASHING *H, void *c)
         return -2; // null pointer
     int posicao = FuncaoHASHING(H, c);
     //printf("Posicao %d\n", posicao);
-    if (posicao >=0)
+    if (posicao <0)
     {   //printf("Posicao %d\n", posicao);
-        AddLGInicio(H->DADOS[posicao].Clientes, c);
-        return 1;
+        fatal("posicao menor que 0 calculada....");
+         return -1;
     }
-    return 0;
+    AddLGInicio(H->DADOS[posicao].Clientes, c);
+    return 1;
+
 }
 int FuncaoHASHING(HASHING *H, void *c)
 {
@@ -79,13 +87,17 @@ int FuncaoHASHING(HASHING *H, void *c)
     Client *C = (Client *)c;
 
     char ch = C->name[0];
-    //if (ch == 'U'|| ch == 'V')
-        //printf("UUUU|VVVV %s\n", C->name);
+    /*
+    if (ch == 'U'|| ch == 'V')
+        printf("UUUU|VVVV %s\n", C->name);
+    */
     int hash = -1;
-    for(int i=0; i<H->NEL-1; i++)
+    for(int i=0; i<H->NEL; i++)
     {
         char f = (H->DADOS + i)->Faixa;
-        if (f == ch)
+        //printf("\n\nFAIXA ->%c FIRST CHAR ->%c \n", f, ch);
+
+        if (toupper(f) == toupper(ch))
         {
             hash  = i;
         }
@@ -107,7 +119,7 @@ int FuncaoHASHING(HASHING *H, void *c)
 void LoadHashingFromLinkedList(HASHING *hash_table, LG *C)
 {
     if (!hash_table || !C)
-        return NULL;
+        return;
     NODE *current = C->head;
     while(current != NULL)
     {
@@ -120,53 +132,60 @@ void *getElementInFaixa_Pos(HASHING *hash_table, int f, int p)
 {
     if (!hash_table)
         return NULL;
-
+    printf("\nDEBUGG->1.....\n");
     LG *lg = hash_table->DADOS[f].Clientes;
     if(!lg || lg->NEL < p)
         return NULL;
-
+    printf("\nDEBUGG->2.....\n");
     if(f>hash_table->NEL)
         return NULL;
-
-    GROUP *g = (hash_table->DADOS +f );
-
+    printf("\nDEBUGG->3.....\n");
+    //GROUP *g = (hash_table->DADOS +f );
+    printf("\nDEBUGG->4.....\n");
     //ShowFaixa(hash_table, f);
     //ShowLG(lg, ShowClient);
-    //LG *lg = g.Clientes;
-    //printf("%d]    ---    %d]", f, p);
+    //LG *lg = g->Clientes;
+    printf("\n##[%d]    ---    [%d]\n##", f, p);
     //void *ptr = NULL;
     if (!lg->head)
     {
         fatal("error in list in faixa...");
         return NULL;
     }
-
+    printf("\nDEBUGG->5.....\n");
     NODE *aux=lg->head;
 
     void *ptr=aux->info;
-
+    printf("\nDEBUGG->6.....\n");
     for(int i=0; i<p; i++)
     {
         //ptr=aux->info;
-        if(!aux->next)
+        if(!aux->next){
             fatal("Error element not accessible...");
-        aux->next;
+            printf("\nDEBUGG->-1.....\n");
+        }
+        aux=aux->next;
+        //printf("\nDEBUGG->7.....\n");
 
     }
     ptr=aux->info;
-    printf("Pointing to inside function -> [%p]", ptr);
-    //return aux->info;
+    printf("\nPointing to inside function -> [%p]", ptr);
 
+    //return aux->info;
+    printf("\nDEBUGG->8.....\n");
     if(!ptr)
     {
         fatal("Error while getting client in hash...");
+        printf("\nDEBUGG->-2.....\n");
         return NULL;
     }
+    printf("\nDEBUGG->9.....\n");
     setEntry(ptr);
-
+    printf("\nDEBUGG->10.....\n");
     //ShowClient(ptr);
 
     printf("Pointing to inside function -> [%p]\n\n\n\n", ptr);
+    printf("\nDEBUGG->11.....\n");
     return ptr;
 }
 

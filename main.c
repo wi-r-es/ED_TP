@@ -17,21 +17,32 @@ int cmpChar(const void* a, const void* b);
 
 int main()
 {
+        srand(time(NULL));
     clock_t start_t, end_t;
     start_t = clock();
 
     //printf("\nDEABUG !!!!!!");
     SM *supermarket=INIT__();
+/*
+    Client *x= CriarClient(33, "Vitor Lafas");
+    int p = FuncaoHASHING(supermarket->clientsHash, x);
+    printf("\nPOSI->[%d]\n\n", p);
     //printf("\nlalalalalaa !!!!!!");
-
+*/
     int randItems = getRandomInt(1,10);
     for(int i=0; i<randItems; i++)
     {
 //        treeNode *random= SelectRandomNode(root);
 
     }
+
     printf("SIM ENTRANCE");
-    simulateEntrance(supermarket);
+    while(1){
+            static int var =0;
+            run(supermarket);
+    printf("\r\n\t-----> static var : %d", var);
+    var++;
+    }
     printf("ENDENDEND");
 
     //ShowHASHING(supermarket->clientsHash);
@@ -108,6 +119,7 @@ SM *INIT__()
     return sm;
 
 }
+
 //void simulateEntrance()
    //printf("%d --> %d", random->ID, random->height);
 

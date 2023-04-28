@@ -89,20 +89,41 @@ void queueing(LG *cx, void *C)
 //Select random client to enter supermarket;
 void simulateEntrance(SM *sm)
 {
+     printf("\nDEBUGG GER->111111111.....\n");
     int entries = sm->clientsHash->NEL;
-    int ni = getRandomInt(0,entries) ;
+
+    printf("\nDEBUGG GER->2222222.....\n");
+    int ni = getRandomInt(0,entries-1) ;
+    printf("\nDEBUGG GER->3333333.....\n");
     int nel = sm->clientsHash->DADOS[ni].Clientes->NEL;
-    int pos = getRandomInt(0, nel);
+    printf("\nDEBUGG GER->444444444.....\n");
+    int pos;
+
+    if (nel == 1)
+    {
+        pos = 0; return;
+    }
+    else{
+            printf("\n\nNEEEEEEEL -> %d\n", nel);
+        pos = getRandomInt(0, nel-1);}
+    printf("\nDEBUGG GER->55555555555.....\n");
     //printf("NEL-> [%d] ", sm->clientsHash->DADOS[0].Clientes->NEL);
     //printf("%d]    ---    %d]/t [%d]", ni, pos, entries);
+    printf("\n\tNUM OF KEYS --> [%d]\n", entries);
+    printf("\n\tNUM OF KEYS selected --> [%d]\n", ni);
+    printf("\n\tNUM OF elements --> [%d]\n", nel);
     void *selected_=getElementInFaixa_Pos(sm->clientsHash, ni, pos);
     //printf("Pointing to after return -> [%p]", selected_);
     //Client *c= getElementInFaixa_Pos(sm->clientsHash, ni, pos);
+    printf("\nDEBUGG->111111111.....\n");
     if(!selected_)
         printf("NULL POINTER");
+    printf("\nDEBUGG- on simulate function>1.....\n");
     printf("\nPointing to outside function -> [%p]", selected_);
+    printf("\nDEBUGG- on simulate function>22222.....\n");
 
     ShowClient(selected_);
+
     //printf("DEGUB");
     //GETTING ERROR HERE BUT WHY??????
     //Client *c= (Client *) client_ptr;
@@ -110,4 +131,7 @@ void simulateEntrance(SM *sm)
 
 }
 
-
+void run(SM *sm)
+{
+    simulateEntrance(sm);
+}

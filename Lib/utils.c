@@ -60,8 +60,6 @@ int ger_rand(int min, int max)
 int getRandomInt(int min, int max)
 {
     // Seed the random number generator with the current time
-    srand(time(NULL));
-
     // Calculate the range size and generate a random offset
     int range = max - min + 1;
     int offset = rand() % range;
