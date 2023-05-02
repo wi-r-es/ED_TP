@@ -86,52 +86,138 @@ void queueing(LG *cx, void *C)
         AddToQueue(ptr_selected_box, C);
     }
 }
-//Select random client to enter supermarket;
-void simulateEntrance(SM *sm)
+
+//Open random number of Boxes
+void simulateOpenBoxes(SM *sm)
 {
-     printf("\nDEBUGG GER->111111111.....\n");
+    LG *lb = sm->caixas;
+    int size_ = lb->NEL;
+    int NB;
+    if (size_ == 3 )
+        NB = 1;
+    else NB = getRandomInt(1,3); // 3 porque e o numero minimo de caixas
+    int count = 0;
+    NODE *b = lb->head;
+    LG *employees = sm->employees;
+    while (b && count < NB)
+    {
+       void *ptr = b->info;
+        if ( getStatus(ptr)==0 )
+        {
+            openCaixa(ptr);
+            setRandomEmployee(ptr, employees);
+            count++;
+        }
+        b = b->next;
+    }
+}
+//Select random client to enter supermarket;
+void *simulateEntrance(SM *sm)
+{
+    //printf("\nDEBUGG GER->111111111.....\n");
     int entries = sm->clientsHash->NEL;
 
-    printf("\nDEBUGG GER->2222222.....\n");
-    int ni = getRandomInt(0,entries-1) ;
-    printf("\nDEBUGG GER->3333333.....\n");
+    //printf("\nDEBUGG GER->2222222.....\n");
+    int ni = getRandomInt(1,entries)-1 ;
+    //printf("\nDEBUGG GER->3333333.....\n");
     int nel = sm->clientsHash->DADOS[ni].Clientes->NEL;
-    printf("\nDEBUGG GER->444444444.....\n");
+
+    //printf("\nDEBUGG GER->444444444.....\n");
     int pos;
 
     if (nel == 1)
     {
-        pos = 0; return;
+        pos = 0;
     }
     else{
-            printf("\n\nNEEEEEEEL -> %d\n", nel);
-        pos = getRandomInt(0, nel-1);}
-    printf("\nDEBUGG GER->55555555555.....\n");
+            //printf("\n\nNEEEEEEEL -> %d\n", nel);
+        pos = getRandomInt(1, nel)-1;}
+    //printf("\nDEBUGG GER->55555555555.....\n");
     //printf("NEL-> [%d] ", sm->clientsHash->DADOS[0].Clientes->NEL);
-    //printf("%d]    ---    %d]/t [%d]", ni, pos, entries);
+    printf("%d]    ---    %d]/t [%d]\n", ni, pos, entries);
     printf("\n\tNUM OF KEYS --> [%d]\n", entries);
     printf("\n\tNUM OF KEYS selected --> [%d]\n", ni);
     printf("\n\tNUM OF elements --> [%d]\n", nel);
+
+
+    // pick a random client
     void *selected_=getElementInFaixa_Pos(sm->clientsHash, ni, pos);
-    //printf("Pointing to after return -> [%p]", selected_);
+    printf("Pointing to after return -> [%p]", selected_);
     //Client *c= getElementInFaixa_Pos(sm->clientsHash, ni, pos);
     printf("\nDEBUGG->111111111.....\n");
     if(!selected_)
         printf("NULL POINTER");
-    printf("\nDEBUGG- on simulate function>1.....\n");
-    printf("\nPointing to outside function -> [%p]", selected_);
-    printf("\nDEBUGG- on simulate function>22222.....\n");
+    else if( getFlagEntry(selected_)==1 )
+    {
+        return NULL;
+    }
+    //printf("\nDEBUGG- on simulate function>1.....\n");
+    //printf("\nPointing to outside function -> [%p]", selected_);
+    //printf("\nDEBUGG- on simulate function>22222.....\n");
 
+    setEntry(selected_);
     ShowClient(selected_);
-
+    return selected_;
     //printf("DEGUB");
     //GETTING ERROR HERE BUT WHY??????
     //Client *c= (Client *) client_ptr;
     //printf("%d", c->ID);
 
 }
+void getItemsToBuy(void *c, treeNode *root)
+{
+    Client *C = (Client *)c;
+    //printf("DEBUUUUUG 11 ");
+    int randItems = getRandomInt(1,10);
+    //printf("DEBUUUUUG 12 ");
 
+    for(int i=0; i<randItems; i++)
+    {
+        //printf("DEBUUUUUG 21 ");
+        treeNode *random= SelectRandomNode(root);
+        void *p = random->Data;
+        if(C->carrinho->head== NULL)
+        {
+            AddLGInicio(C->carrinho, p);
+        //printf("DEBUUUUUG 22 ");
+        //ShowTreeNode(random);
+        }
+        else
+        {
+            printf("DEBUUUUUG 22 \n");
+            int res = PertenceLG(C->carrinho, &random->ID  ,SearchProduct);
+            printf("DEBUUUUUG 3 \n");
+            printf("\n RES -> [%d]\n", res);
+            random = SelectRandomNode(root);
+        }
+
+        //printf("\nRES ->[%d] \n", res);
+        //if ()
+           // random = SelectRandomNode(root);
+
+
+
+    }
+
+    //printf("\n DEBUG 11");
+
+
+    //printf("\n##############\n\t Products Selected\n");
+    //ShowLG(C->carrinho, ShowProduct);
+
+
+    //printf("\n DEBUG 22");
+}
 void run(SM *sm)
 {
-    simulateEntrance(sm);
+    void *c= NULL;
+    while (c==NULL){
+        c = simulateEntrance(sm);
+    }
+    //rintf("DEBUUUUUG 0 ");
+    getItemsToBuy(c, sm->prodTree);
+
+
+
 }
+

@@ -47,7 +47,11 @@ void ShowCaixa(void *b)
     printf("\t[ ]NUMERO CAIXA: [%c]\n", B->numero);
     printf("\t[ ]STATUS: [%s]\n", B->status==0 ? "FECHADA" : "ABERTA" );
     printf("\t[ ]FUNCIONARIO DA CAIXA: [%s]\n", B->funcionario==NULL ? "SEM FUNCIONARIO DESIGNADO" : "A IR BUSCAR INFORMACAO FUNCIONARIO");
-   // printf("\t[ ]NUMERO CLIENTES FILA: [%d]\n", B->num_clientes_fila);
+    if (B->funcionario)
+        ShowEmployee(( (void *)B->funcionario ));
+
+
+      // printf("\t[ ]NUMERO CLIENTES FILA: [%d]\n", B->num_clientes_fila);
     printf("\t[ ]PRODUTOS OFERECIDOS:\n");
     printf("\t\t[+][-]QUANTIDADE->[%d]\n", B->num_produtos_oferecidos);
     printf("\t\t[+][-]VALOR TOTAL->[%lf]\n", B->valor_produtos_oferecidos);
@@ -76,6 +80,46 @@ void openCaixa(void *b)
     BOX *B = (BOX *) b;
     B->QUEUE = CriarLG();
     B->status=1;
+}
+void setRandomEmployee(void *b, LG *lg)
+{
+    if(!b || !lg)
+        return;
+    BOX *B = (BOX *) b;
+    int pos = getRandomInt(1,lg->NEL);
+    NODE *aux = lg->head;
+    if (pos ==1 )
+    {
+        if(getStatusE(aux->info)==1)
+        {
+            setRandomEmployee(b,lg);
+            return;
+        }
+        setToWork(aux->info);
+        B->funcionario = aux->info;
+    }
+    else
+    {
+        int count =0;
+        while (aux && count < pos)
+        {
+            aux = aux->next;
+            count++;
+        }
+        if(!aux)
+        {
+            setRandomEmployee(b, lg);
+            return;
+        }
+        if(getStatusE(aux->info)==1)
+        {
+            setRandomEmployee(b,lg);
+            return;
+        }
+        setToWork(aux->info);
+        B->funcionario = aux->info;
+
+    }
 }
 void closeCaixa(void *b)
 {

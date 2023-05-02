@@ -29,21 +29,21 @@ int main()
     printf("\nPOSI->[%d]\n\n", p);
     //printf("\nlalalalalaa !!!!!!");
 */
-    int randItems = getRandomInt(1,10);
-    for(int i=0; i<randItems; i++)
-    {
-//        treeNode *random= SelectRandomNode(root);
+    OpenSuperMarket(supermarket);
 
-    }
 
+    //InOrder(supermarket->prodTree);
     printf("SIM ENTRANCE");
+
+
     while(1){
             static int var =0;
             run(supermarket);
-    printf("\r\n\t-----> static var : %d", var);
+    printf("\r\n\t-----> static var : %d\n\n", var);
     var++;
+    //break;
     }
-    printf("ENDENDEND");
+    printf("\n\n##################");
 
     //ShowHASHING(supermarket->clientsHash);
     //ShowLG(supermarket->caixas, ShowCaixa);
@@ -113,10 +113,14 @@ SM *INIT__()
     treeNode *_root = CreateTree(LP);
     SM *sm = LoadSuper(LC, LF, LP, LCX,hash_table, _root );
     //ShowHASHING(sm->clientsHash);
-
-
-
     return sm;
+}
+
+void OpenSuperMarket(SM *sm)
+{
+    simulateOpenBoxes(sm);
+    ShowLG(sm->caixas, ShowCaixa);
+
 
 }
 

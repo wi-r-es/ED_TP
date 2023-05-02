@@ -20,6 +20,8 @@ typedef struct CLIENTE {
     unsigned int inSuper :1 ;
     LG *carrinho; // LISTA GENERICA
     int tempo_medio_espera;
+    float totalCompra;
+    float totalCaixa;
 
    // struct Client *next;
 }CLIENTE, Client, *ptr_client;
@@ -34,6 +36,7 @@ int compClient(void *x, void *y);
 int SearchClient(void *c, void *_id);
 int SearchClientByName(void *c, void *_name);
 int getIdClient(void *c);
+int getFlagEntry(void *c);
 void setEntry(void *c);
 void setDisentry(void *c);
 void ShowClientsInSuper(LG *lg);

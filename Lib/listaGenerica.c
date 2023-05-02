@@ -105,6 +105,7 @@ void AddLGFim(LG *lg, void *x) //Adicionar no fim
         lg->tail = aux;
     }
     lg->NEL++;
+    //printf("\n DEBUG el add");
     //logging(logging_file, __FUNCTION__, "Adding successfull");
 }
 

@@ -32,6 +32,8 @@ Client *CriarClient(int _id, char * _name)
     C->inSuper=0;
     C->carrinho=NULL;
     C->tempo_medio_espera=0;
+    C->totalCaixa=0;
+    C->totalCompra=0;
     //logging(logging_file, __FUNCTION__, "Client created");
     return C;
 }
@@ -93,7 +95,11 @@ int getIdClient(void *c)
     CLIENTE *C = (CLIENTE *)c;
     return C->ID;
 }
-
+int getFlagEntry(void *c)
+{
+    CLIENTE *C = (CLIENTE *)c;
+    return C->inSuper;
+}
 //void gerProdutos()
 void setEntry(void *c)
 {
@@ -101,6 +107,7 @@ void setEntry(void *c)
         return;
     CLIENTE *C = (CLIENTE *)c;
     C->inSuper=1;
+    C->carrinho = CriarLG();
 }
 void setDisentry(void *c)
 {

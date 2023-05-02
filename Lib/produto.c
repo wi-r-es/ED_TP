@@ -50,7 +50,7 @@ void DestruirProduct(void *p)
 void ShowProduct(void *p)
 {
     Product *P = (Product *) p;
-    printf("\n[-][-]<%s]>-][-]\n", __FUNCTION__);
+    printf("\n[-][-]<%s]>[-][-]\n", __FUNCTION__);
     printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME ARTIGO: [%s]\n", P->COD, P->name);
     printf("\t[ ][]MARCA: [%s]\n", P->marca);
     printf("\t[ ][][][+]PRECO: [%lf]\n", P->preco);
@@ -83,7 +83,7 @@ int SearchProduct(void *p, void *_ID)
 
 int getIdProduct(void *p)
 {
-    if(!p) return -2;
+    if(!p) return 0;
     Product *P = (Product *)p;
     return P->COD;
 }

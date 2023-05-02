@@ -59,4 +59,18 @@ int getIdEmployee(void *e)
     Employee *E = (Employee *)e;
     return E->ID;
 }
-
+int getStatusE(void *e)
+{
+    Employee *E = (Employee *)e;
+    return E->working;
+}
+void setToWork(void *e)
+{
+    Employee *E = (Employee *)e;
+    E->working=1;
+}
+void setToRest(void *e)
+{
+    Employee *E = (Employee *)e;
+    E->working=0;
+}

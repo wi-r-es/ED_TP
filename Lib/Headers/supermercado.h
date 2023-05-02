@@ -31,7 +31,9 @@ void ShowSM(SM *sm);
 void queueing(LG *cx, void *C); // for clients
 void getItems(void *c);
 //int compSM(void *x, void *y);
-void simulateEntrance(SM *sm);
+void simulateOpenBoxes(SM *sm);
+void *simulateEntrance(SM *sm);
+void getItemsToBuy(void *c, treeNode *root);
 void run(SM *sm);
 
 #endif // SUPERMERCADO_H_INCLUDED

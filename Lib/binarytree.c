@@ -175,11 +175,31 @@ void DestructTree(treeNode *root)
 int SubTreeSize(treeNode *root) {
     if (!root)
     {
-        return -2;
+        return 0;
     }
     return 1 + SubTreeSize(root->left) + SubTreeSize(root->right);
 }
+treeNode *GetAux(treeNode *root, int *x)
+{
+    //printf("\nx->[%d]\n", *x);
+    if(!root)
+    {
+        //printf("DEBUUUUUG XYZ \n");
+         return NULL;
+    }
+    //printf("DEBUUUUUG YYY \n");
+    if(*x == 1){
+            //ShowTreeNode(root);
+        return root;
+        }
+    --(*x);
 
+    treeNode *k = GetAux(root->left, x);
+    if (k)
+        return k;
+
+    return GetAux(root->right, x);
+}
 treeNode *SelectRandomNode(treeNode *root)
 {
     if(!root)
@@ -187,31 +207,50 @@ treeNode *SelectRandomNode(treeNode *root)
         fatal("Null pointer given...");
         return NULL;
     }
-    int size = SubTreeSize(root);
+    int nel = SubTreeSize(root);
+       // printf("\n\t########[%d]\n\n", nel);
+    int choice = getRandomInt(1, nel);
+    //printf("\n\t########[%d]\n\n", choice);
+    treeNode *aux = NULL;
+   // while (aux == NULL)
+    {
+        //printf("DEBUUUUUG xxxx\n ");
+        aux = GetAux(root, &choice);
+    }
+    return aux;
+    //printf("\nNode selected -> ");
+    //ShowTreeNode(aux);
     //printf("[%d]\n\n", size);
-
-    int choice = getRandomInt(1, size);
+/*
+    int choice = getRandomInt(1, nel);
     int left_size = SubTreeSize(root->left);
     if (choice == left_size + 1)
     { // if choice  is equal to the left_size + 1 , the node is the current one
         return root;
     } else if (choice <= left_size)
     { //if choice is less than or equal to the size of the left subtree, the node to be selected must be in the left subtree.
+
         return SelectRandomNode(root->left);
     } else
     { ////if choice is less than or equal to the size of the left subtree, the node to be selected must be in the left subtree.
         return SelectRandomNode(root->right);
     }
 
-
-
+*/
+}
+void ShowTreeNode ( treeNode *root)
+{
+    if(root != NULL)
+    {
+        printf("Tree node->[%d]\n", root->ID);
+    }
 }
 void InOrder(treeNode *root)
 {
     if(root != NULL)
     {
         InOrder(root->left);
-        printf("%d ---", root->ID);
+        printf("\n\t[%d]\n", root->ID);
         //ShowProduct(root->Data);
         InOrder(root->right);
     }

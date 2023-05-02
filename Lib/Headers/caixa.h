@@ -28,6 +28,7 @@ void ShowCaixa(void *b);
 void setEmployerTo(void *b, void *E);
 int getStatus(void *b);
 void openCaixa(void *b);
+void setRandomEmployee(void *b, LG *lg);
 void closeCaixa(void *b);
 void closeCaixa_if_min_not_satisfied(void *b);
 int AddToQueue(void *b, void *c);

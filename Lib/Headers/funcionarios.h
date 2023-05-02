@@ -21,6 +21,9 @@ void ShowEmployee(void *e);
 int compEmployee(void *x, void *y);
 int SearchEmployee(void *e, void *_ID);
 int getIdEmplyee(void *e);
+int getStatusE(void *e);
+void setToWork(void *e);
+void setToRest(void *e);
 //int PertenceClient(CLIENTE *c, void *X, int (*fcomp)(void *, void *));
 
 #endif // FUNCIONARIOS_H_INCLUDED

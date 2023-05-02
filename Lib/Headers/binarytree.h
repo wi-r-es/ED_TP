@@ -33,7 +33,9 @@ treeNode *Insert(treeNode *root, void *p);
 
 treeNode *CreateTree( LG *P);
 int SubTreeSize(treeNode *root);
+treeNode *GetAux(treeNode *root, int *x);
 treeNode *SelectRandomNode(treeNode *root);
+void ShowTreeNode ( treeNode *root);
 void InOrder(treeNode *root);
 
 

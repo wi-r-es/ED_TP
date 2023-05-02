@@ -132,60 +132,60 @@ void *getElementInFaixa_Pos(HASHING *hash_table, int f, int p)
 {
     if (!hash_table)
         return NULL;
-    printf("\nDEBUGG->1.....\n");
+    //printf("\nDEBUGG->1.....\n");
     LG *lg = hash_table->DADOS[f].Clientes;
     if(!lg || lg->NEL < p)
         return NULL;
-    printf("\nDEBUGG->2.....\n");
+    //printf("\nDEBUGG->2.....\n");
     if(f>hash_table->NEL)
         return NULL;
-    printf("\nDEBUGG->3.....\n");
+    //printf("\nDEBUGG->3.....\n");
     //GROUP *g = (hash_table->DADOS +f );
-    printf("\nDEBUGG->4.....\n");
+    //printf("\nDEBUGG->4.....\n");
     //ShowFaixa(hash_table, f);
     //ShowLG(lg, ShowClient);
     //LG *lg = g->Clientes;
-    printf("\n##[%d]    ---    [%d]\n##", f, p);
+    //printf("\n##[%d]    ---    [%d]\n##", f, p);
     //void *ptr = NULL;
     if (!lg->head)
     {
         fatal("error in list in faixa...");
         return NULL;
     }
-    printf("\nDEBUGG->5.....\n");
+    //printf("\nDEBUGG->5.....\n");
     NODE *aux=lg->head;
 
     void *ptr=aux->info;
-    printf("\nDEBUGG->6.....\n");
+    //printf("\nDEBUGG->6.....\n");
     for(int i=0; i<p; i++)
     {
         //ptr=aux->info;
         if(!aux->next){
             fatal("Error element not accessible...");
-            printf("\nDEBUGG->-1.....\n");
+            //printf("\nDEBUGG->-1.....\n");
         }
         aux=aux->next;
         //printf("\nDEBUGG->7.....\n");
 
     }
     ptr=aux->info;
-    printf("\nPointing to inside function -> [%p]", ptr);
+    //printf("\nPointing to inside function -> [%p]", ptr);
 
     //return aux->info;
-    printf("\nDEBUGG->8.....\n");
+    //printf("\nDEBUGG->8.....\n");
     if(!ptr)
     {
         fatal("Error while getting client in hash...");
-        printf("\nDEBUGG->-2.....\n");
+        //printf("\nDEBUGG->-2.....\n");
         return NULL;
     }
-    printf("\nDEBUGG->9.....\n");
-    setEntry(ptr);
-    printf("\nDEBUGG->10.....\n");
+    //printf("\nDEBUGG->9.....\n");
+    //setEntry(ptr);
+    //printf("\nDEBUGG->10.....\n");
     //ShowClient(ptr);
 
-    printf("Pointing to inside function -> [%p]\n\n\n\n", ptr);
-    printf("\nDEBUGG->11.....\n");
+    //printf("Pointing to inside function -> [%p]\n\n\n\n", ptr);
+    //printf("\nDEBUGG->11.....\n");
     return ptr;
 }
 
