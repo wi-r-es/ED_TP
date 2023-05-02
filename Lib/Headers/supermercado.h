@@ -15,6 +15,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+// TO lock random generator
+#include <pthread.h>
+
+
 typedef struct SUPERMERCADO {
     char *COMPANY;
     LG *clients;
@@ -23,6 +27,7 @@ typedef struct SUPERMERCADO {
     LG *caixas;
     treeNode *prodTree; //arvore de produtos
     HASHING *clientsHash;
+    int Population;
 }Supermercado, SM;
 
 SM *CriarSM(char *_name, LG *C, LG *E, LG *P, LG *CX, HASHING *hc, treeNode *r);
@@ -31,6 +36,7 @@ void ShowSM(SM *sm);
 void queueing(LG *cx, void *C); // for clients
 void getItems(void *c);
 //int compSM(void *x, void *y);
+void OpenSuperMarket(SM *sm);
 void simulateOpenBoxes(SM *sm);
 void *simulateEntrance(SM *sm);
 void getItemsToBuy(void *c, treeNode *root);

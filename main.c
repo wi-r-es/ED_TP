@@ -3,7 +3,7 @@
 #include "Lib/Headers/supermercado.h"
 #include "Lib/Headers/hashing.h"
 
-extern void logging(char* datafile, char *funcname, char *info);
+extern void logging(char* datafile, const char *funcname, char *info);
 extern char *logging_file;
 extern int getRandomInt(int min, int max);
 
@@ -14,7 +14,19 @@ void FreeMem(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P);
 int FreeAllMemory(SM *s);
 //const to prevent accidental modification of data
 int cmpChar(const void* a, const void* b);
-
+/* CLOCk
+printf("Simulacao de um Relogio-Acelerado!\n");
+    Relogio Rolex;
+    StartRelogio(&Rolex, 500, "8:30:00");
+    while (true)
+    {
+        time_t Simulada = VerTimeRelogio(&Rolex);
+        printf("Simulada = %s", asctime(localtime(&Simulada)));
+        //Wait(1);
+        WaitSegundos(500);
+    }
+    return 0;
+*/
 int main()
 {
         srand(time(NULL));
@@ -38,9 +50,15 @@ int main()
 
     while(1){
             static int var =0;
+            printf("1111111111111111111111111111111\n");
+            // BREAKING IN THE FUNCTION RUN SOMEWHERE!!!!!!
             run(supermarket);
+            printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\r\n\t-----> static var : %d\n\n", var);
     var++;
+    /*
+    if(var== 101)
+        break; */
     //break;
     }
     printf("\n\n##################");
@@ -116,13 +134,7 @@ SM *INIT__()
     return sm;
 }
 
-void OpenSuperMarket(SM *sm)
-{
-    simulateOpenBoxes(sm);
-    ShowLG(sm->caixas, ShowCaixa);
 
-
-}
 
 //void simulateEntrance()
    //printf("%d --> %d", random->ID, random->height);

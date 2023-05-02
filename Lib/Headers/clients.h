@@ -40,7 +40,7 @@ int getFlagEntry(void *c);
 void setEntry(void *c);
 void setDisentry(void *c);
 void ShowClientsInSuper(LG *lg);
-void EntrarSuper(void *c);
+//void EntrarSuper(void *c);
 //int PertenceClient(CLIENTE *c, void *X, int (*fcomp)(void *, void *));
 
 

@@ -9,15 +9,27 @@
 
 //Logging function
 
-void logging(char *datafile, char *funcname, char *info);
+typedef struct
+{
+    time_t START;
+    int VELOCIDADE;
+    time_t Hora_Inicio;
+}Relogio;
+
+void StartRelogio(Relogio *R, int Vel, const char *H_Inicio);
+time_t VerTimeRelogio(Relogio *R);
+void Wait(int s);
+void WaitSegundos(int s);
+
+void logging(char *datafile, const char *funcname, char *info);
 // A function to display an error message and then exit
 void fatal(char *message);
 //Error-check malloc
 void *ec_malloc(unsigned int size);
 //clock wait
-void wait ( int mlseconds );
 
-void wait_segundos ( int seconds );
+
+
 
 // Devolve um numero aleatorio entre [min, max]
 // Gera um numero aleatorio

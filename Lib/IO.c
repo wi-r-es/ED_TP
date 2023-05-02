@@ -1,6 +1,6 @@
 #include "Headers/IO.h"
 
-extern void logging(char* datafile, char *funcname, char *info);
+extern void logging(char* datafile, const char *funcname, char *info);
 extern char *logging_file;
 extern void fatal(char *message);
 

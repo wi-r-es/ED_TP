@@ -1,7 +1,7 @@
 #include "Headers/listaGenerica.h"
 
 extern void *ec_malloc(unsigned int size);
-extern void logging(char* datafile, char *funcname, char *info);
+extern void logging(char* datafile, const char *funcname, char *info);
 extern char *logging_file;
 
 ListaGenerica *CriarLG()

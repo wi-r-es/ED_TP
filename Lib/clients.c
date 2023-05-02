@@ -3,7 +3,7 @@
 
 extern void *ec_malloc(unsigned int size);
 int getRandomInt(int min, int max);
-extern void logging(char* datafile, char *funcname, char *info);
+extern void logging(char* datafile, const char *funcname, char *info);
 extern char *logging_file;
 
 Client *CriarClient(int _id, char * _name)
@@ -117,23 +117,54 @@ void setDisentry(void *c)
     C->inSuper=0;
 }
 
-void ShowClientsInSuper(LG *lg)
+void getClientInSuper(LG *lg)
 {
 
 }
+/*
 void EntrarSuper(void *c)
 {
     if (!c)
         return;
     CLIENTE *C = (CLIENTE *) c;
     C->carrinho = CriarLG();
+    /*
     int num_produtos = getRandomInt(1,20);
     //Funcao para randomizar escolha de produtos
     for(int i=0; i<num_produtos; i++)
     {
 
     }
+    /
+} */
+
+
+
+void SumTimes(void *c)
+{
+    printf("SUMSUSMSUMSUMSUM 0 \n");
+    if (!c)
+        return;
+    printf("SUMSUSMSUMSUMSUM 01 \n");
+    CLIENTE *C = (CLIENTE *) c;
+    printf("SUMSUSMSUMSUMSUM 02 \n");
+    if (!C->carrinho)
+    {
+        printf("ERROR: Carrinho is empty");
+        return ;
+    }
+     printf("SUMSUSMSUMSUMSUM 03 \n");
+    NODE *aux = C->carrinho->head;
+    while (aux!= NULL)
+    {
+         printf("SUMSUSMSUMSUMSUM 04 \n");
+        Product *P = (Product *) aux->info;
+        printf("SUMSUSMSUMSUMSUM 55 \n");
+        C->totalCaixa += P->TCAIXA;
+        C->totalCompra += P->TCOMPRA;
+        printf("SUMSUSMSUMSUMSUM 6664 \n");
+        aux->next;
+    }
+
 }
-
-
 
