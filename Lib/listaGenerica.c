@@ -136,3 +136,18 @@ void* SearchLG(LG *lg, void *key, int (*fsearch)(void*, void*))
     }
     return NULL;
 }
+
+void* getByPos(LG *lg, int p)
+{
+
+    if(!lg)
+        return NULL;
+    NODE *aux = lg->head;
+    for(int i=0; i<p; i++)
+    {
+         aux = aux->next;
+    }
+    return aux;
+}
+
+

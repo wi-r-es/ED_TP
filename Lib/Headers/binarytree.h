@@ -32,6 +32,7 @@ treeNode *DoubleRotateWithRight(treeNode *Z);
 treeNode *Insert(treeNode *root, void *p);
 
 treeNode *CreateTree( LG *P);
+void DestructTree(treeNode *root);
 int SubTreeSize(treeNode *root);
 treeNode *GetAux(treeNode *root, int *x);
 treeNode *SelectRandomNode(treeNode *root);

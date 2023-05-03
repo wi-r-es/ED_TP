@@ -22,6 +22,8 @@ typedef struct CLIENTE {
     int tempo_medio_espera;
     float totalCompra;
     float totalCaixa;
+    time_t entrance;
+    time_t waiting;
 
    // struct Client *next;
 }CLIENTE, Client, *ptr_client;
@@ -39,7 +41,13 @@ int getIdClient(void *c);
 int getFlagEntry(void *c);
 void setEntry(void *c);
 void setDisentry(void *c);
+void setEntranceTime(void *c, time_t time);
 void ShowClientsInSuper(LG *lg);
+void SumTimes(void *c);
+
+void queued(void *c, time_t time);
+time_t getQtime(void *c);
+time_t getTime(void *c);
 //void EntrarSuper(void *c);
 //int PertenceClient(CLIENTE *c, void *X, int (*fcomp)(void *, void *));
 

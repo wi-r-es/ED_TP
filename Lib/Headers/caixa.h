@@ -13,10 +13,12 @@
 typedef struct CAIXA {
     unsigned int status : 1; //0 fechada | 1 aberta
     char numero;
+    unsigned int in_service : 1;
     //short int num_clientes_fila;
     int num_produtos_oferecidos;
     double valor_produtos_oferecidos;
     LG *QUEUE;
+    void *auxiliary;
     Employee *funcionario;
 }BOX, *ptr_caixa;
 
@@ -27,7 +29,10 @@ void DestruirCaixa(void *b);
 void ShowCaixa(void *b);
 void setEmployerTo(void *b, void *E);
 int getStatus(void *b);
+int getService(void *b);
+void setService(void *b);
 void openCaixa(void *b);
+void setAux(void *b, void *c);
 void setRandomEmployee(void *b, LG *lg);
 void closeCaixa(void *b);
 void closeCaixa_if_min_not_satisfied(void *b);

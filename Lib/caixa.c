@@ -1,6 +1,6 @@
 #include "Headers/caixa.h"
 
-#define MINQUEUE=3
+#define MINQUEUE = 3
 
 
 BOX *CriarCaixa(char _id)
@@ -9,10 +9,12 @@ BOX *CriarCaixa(char _id)
     if(!B){return NULL;}
     B->numero = _id;
     B->status =0;
+    B->in_service=0;
     B->funcionario = NULL;
     B->QUEUE=NULL;
     B->num_produtos_oferecidos=0;
     B->valor_produtos_oferecidos=0;
+    B->auxiliary=NULL;
     return B;
 
 }
@@ -42,6 +44,7 @@ void DestruirCaixa(void *b)
 }
 void ShowCaixa(void *b)
 {
+
     BOX *B = (BOX *)b;
     printf("\n[*]<%s>[*]\n", __FUNCTION__);
     printf("\t[ ]NUMERO CAIXA: [%c]\n", B->numero);
@@ -73,6 +76,20 @@ int getStatus(void *b)
     BOX *B = (BOX *) b;
     return B->status;
 }
+
+int getService(void *b)
+{
+
+    BOX *B = (BOX *) b;
+    return B->in_service;
+}
+void setService(void *b)
+{
+    if(!b)
+        return;
+    BOX *B = (BOX *) b;
+    B->in_service=1;
+}
 void openCaixa(void *b)
 {
     if(!b)
@@ -81,13 +98,27 @@ void openCaixa(void *b)
     B->QUEUE = CriarLG();
     B->status=1;
 }
+void setAux(void *b, void *c)
+{
+    if(!b || !c)
+        return;
+    BOX *B = (BOX *) b;
+    B->auxiliary = c;
+}
 void setRandomEmployee(void *b, LG *lg)
 {
     if(!b || !lg)
         return;
     BOX *B = (BOX *) b;
-    int pos = getRandomInt(1,lg->NEL);
+    int pos = getRandomInt(0,lg->NEL-1);
+    /*
     NODE *aux = lg->head;
+    for(int i=0; i<pos; i++)
+    {
+         aux = aux->next;
+    }
+    return aux;
+
     if (pos ==1 )
     {
         if(getStatusE(aux->info)==1)
@@ -106,6 +137,8 @@ void setRandomEmployee(void *b, LG *lg)
             aux = aux->next;
             count++;
         }
+        */
+        NODE *aux = getByPos(lg, pos);
         if(!aux)
         {
             setRandomEmployee(b, lg);
@@ -119,7 +152,7 @@ void setRandomEmployee(void *b, LG *lg)
         setToWork(aux->info);
         B->funcionario = aux->info;
 
-    }
+   // }
 }
 void closeCaixa(void *b)
 {

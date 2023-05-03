@@ -25,17 +25,24 @@ typedef struct SUPERMERCADO {
     LG *employees;
     LG *produtos;
     LG *caixas;
+    LG *insideSuper;
     treeNode *prodTree; //arvore de produtos
     HASHING *clientsHash;
     int Population;
+    Relogio ROLEX;
 }Supermercado, SM;
 
 SM *CriarSM(char *_name, LG *C, LG *E, LG *P, LG *CX, HASHING *hc, treeNode *r);
 void DestruirSM(SM *sm);
 void ShowSM(SM *sm);
+void startClock(SM *sm);
+
 void queueing(LG *cx, void *C); // for clients
 void getItems(void *c);
 //int compSM(void *x, void *y);
+void trasverseList_checkTimes(SM *sm , LG *lg, time_t time_passed);
+void trasverseQueueBox(SM *sm , LG *lg, time_t current_time);
+void attend(LG *lg, time_t current_time);
 void OpenSuperMarket(SM *sm);
 void simulateOpenBoxes(SM *sm);
 void *simulateEntrance(SM *sm);

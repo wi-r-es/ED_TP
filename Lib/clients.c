@@ -34,6 +34,7 @@ Client *CriarClient(int _id, char * _name)
     C->tempo_medio_espera=0;
     C->totalCaixa=0;
     C->totalCompra=0;
+    //C->entrance=NULL;
     //logging(logging_file, __FUNCTION__, "Client created");
     return C;
 }
@@ -56,6 +57,9 @@ void ShowClient(void *c)
     //writeTesting("testingHash.txt", __FUNCTION__, C->name);
     //printf("DEGUB3");
     printf("\t[ ]INQUEUE: [%d]\n\t[ ]INSUPER: [%d]\n", C->inQueue, C->inSuper);
+    time_t aux = C->entrance;
+    //if(aux)
+        printf("\t\t[$]TIME OF ENTRANCE: [%s]", asctime(localtime(&aux)));
     //printf("DEGUB4");
 }
 int compClient(void *x, void *y)
@@ -109,6 +113,22 @@ void setEntry(void *c)
     C->inSuper=1;
     C->carrinho = CriarLG();
 }
+void queued(void *c, time_t time)
+{
+    if(!c)
+        return;
+    CLIENTE *C = (CLIENTE *)c;
+    C->inQueue=1;
+    C->waiting=time;
+}
+time_t getQtime(void *c)
+{
+    if(!c)
+        return;
+    CLIENTE *C = (CLIENTE *)c;
+    return C->waiting;
+}
+
 void setDisentry(void *c)
 {
     if(!c)
@@ -116,10 +136,20 @@ void setDisentry(void *c)
     CLIENTE *C = (CLIENTE *)c;
     C->inSuper=0;
 }
-
-void getClientInSuper(LG *lg)
+void setEntranceTime(void *c, time_t time)
 {
+    if(!c)
+        return;
+    CLIENTE *C = (CLIENTE *)c;
+    C->entrance = time;
+}
 
+time_t getTime(void *c)
+{
+    if(!c)
+        return;
+    CLIENTE *C = (CLIENTE *)c;
+    return C->entrance;
 }
 /*
 void EntrarSuper(void *c)
@@ -142,28 +172,28 @@ void EntrarSuper(void *c)
 
 void SumTimes(void *c)
 {
-    printf("SUMSUSMSUMSUMSUM 0 \n");
+    //printf("SUMSUSMSUMSUMSUM 0 \n");
     if (!c)
         return;
-    printf("SUMSUSMSUMSUMSUM 01 \n");
+    //printf("SUMSUSMSUMSUMSUM 01 \n");
     CLIENTE *C = (CLIENTE *) c;
-    printf("SUMSUSMSUMSUMSUM 02 \n");
+   // printf("SUMSUSMSUMSUMSUM 02 \n");
     if (!C->carrinho)
     {
         printf("ERROR: Carrinho is empty");
         return ;
     }
-     printf("SUMSUSMSUMSUMSUM 03 \n");
+     //printf("SUMSUSMSUMSUMSUM 03 \n");
     NODE *aux = C->carrinho->head;
     while (aux!= NULL)
     {
-         printf("SUMSUSMSUMSUMSUM 04 \n");
+        // printf("SUMSUSMSUMSUMSUM 04 \n");
         Product *P = (Product *) aux->info;
-        printf("SUMSUSMSUMSUMSUM 55 \n");
+        //printf("SUMSUSMSUMSUMSUM 55 \n");
         C->totalCaixa += P->TCAIXA;
         C->totalCompra += P->TCOMPRA;
-        printf("SUMSUSMSUMSUMSUM 6664 \n");
-        aux->next;
+       // printf("SUMSUSMSUMSUMSUM 6664 \n");
+        aux = aux->next;
     }
 
 }

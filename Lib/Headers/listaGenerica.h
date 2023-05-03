@@ -36,5 +36,6 @@ void AddLGFim(ListaGenerica *lg, void *X); // add stack
 void AddLGInicio(ListaGenerica *lg, void *X);
 void* SearchLG(LG *lg, void *key, int (*fsearch)(void*, void*));
 int PertenceLG(ListaGenerica *lg, void *X, int (*fcomp)(void *, void *));
+void* getByPos(LG *lg, int p);
 
 #endif // LISTAGENERICA_H_INCLUDED

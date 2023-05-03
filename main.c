@@ -45,7 +45,7 @@ int main()
 
 
     //InOrder(supermarket->prodTree);
-    printf("SIM ENTRANCE");
+    //printf("SIM ENTRANCE");
 
 
     while(1){
@@ -53,6 +53,7 @@ int main()
             printf("1111111111111111111111111111111\n");
             // BREAKING IN THE FUNCTION RUN SOMEWHERE!!!!!!
             run(supermarket);
+            //break;
             printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\r\n\t-----> static var : %d\n\n", var);
     var++;
