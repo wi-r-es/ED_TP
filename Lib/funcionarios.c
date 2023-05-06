@@ -34,6 +34,18 @@ void ShowEmployee(void *e)
     printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", E->ID, E->name);
 
 }
+void ShowEmployeeInSuper(void *e)
+{
+    Employee *E = (Employee *)e;
+    if(E->working)
+    {
+        printf("\n\t[*][%s][*]\n", __FUNCTION__);
+        printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", E->ID, E->name);
+    }
+    //printf("\n[*][%s][*]\n", __FUNCTION__);
+    //printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", E->ID, E->name);
+
+}
 int compEmployee(void *x, void *y)
 {
 

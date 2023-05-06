@@ -87,6 +87,12 @@ int getIdProduct(void *p)
     Product *P = (Product *)p;
     return P->COD;
 }
+double getPrice(void *p)
+{
+    if(!p) return 0;
+    Product *P = (Product *)p;
+    return P->preco;
+}
 float getProductTimeToGet(void *p)
 {
     if(!p) return -2;

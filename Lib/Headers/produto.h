@@ -31,6 +31,7 @@ void ShowProduct(void *p);
 int compProduct(void *x, void *y);
 int SearchProduct(void *p, void *_ID);
 int getIdProduct(void *p);
+double getPrice(void *p);
 float getProductTimeToGet(void *p);
 float getProductTimeToBuy(void *p);
 #endif // PRODUTO_H_INCLUDED

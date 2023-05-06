@@ -38,4 +38,6 @@ void* SearchLG(LG *lg, void *key, int (*fsearch)(void*, void*));
 int PertenceLG(ListaGenerica *lg, void *X, int (*fcomp)(void *, void *));
 void* getByPos(LG *lg, int p);
 
+void removeByID(LG *lg,  int _id);
+
 #endif // LISTAGENERICA_H_INCLUDED

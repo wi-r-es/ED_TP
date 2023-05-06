@@ -46,13 +46,27 @@ int main()
 
     //InOrder(supermarket->prodTree);
     //printf("SIM ENTRANCE");
-
+    //ShowSM(supermarket);
 
     while(1){
             static int var =0;
+              //break;
             printf("1111111111111111111111111111111\n");
             // BREAKING IN THE FUNCTION RUN SOMEWHERE!!!!!!
             run(supermarket);
+
+/*
+            if (kbhit())
+            {
+                    char option = getchar();
+                    // ENTER TO THE MENU FUCNTION...
+            } */
+            /**
+            CHECK IF A KEY WAS PRESSED WITH KB_HIT AND IMPLEMENT FUNCTIONS BELOW :
+            Colocar uma nova caixa em funcionamento,  por opção do utilizador,
+             Num dado instante pode acontecer que uma caixa tenha de fechar, então as
+pessoas devem ser distribuídas pelas restantes caixas;
+            **/
             //break;
             printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\r\n\t-----> static var : %d\n\n", var);
@@ -89,6 +103,16 @@ int main()
 
 
 
+/** \brief
+ *
+ * \param C ListaGenerica*
+ * \param F ListaGenerica*
+ * \param P ListaGenerica*
+ * \param CX ListaGenerica*
+ * \param l char*
+ * \return void
+ *
+ */
 void LoadConfigs(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX, char *l)
 {
     logging(logging_file, __FUNCTION__, "Loading supermarket configs\n");

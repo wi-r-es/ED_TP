@@ -18,6 +18,7 @@ typedef struct FUNCIONARIO{
 Employee *CriarEmployee(int _id, char * _name);
 void DestruirEmployee(void *e);
 void ShowEmployee(void *e);
+void ShowEmployeeInSuper(void *e);
 int compEmployee(void *x, void *y);
 int SearchEmployee(void *e, void *_ID);
 int getIdEmplyee(void *e);

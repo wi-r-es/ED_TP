@@ -1,14 +1,14 @@
 # depslib dependency file v1.0
-1683039392 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/funcionarios.c
+1683213437 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/funcionarios.c
 	"Headers/funcionarios.h"
 
-1683035381 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/produto.c
+1683213629 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/produto.c
 	"Headers/produto.h"
 
-1683146105 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/clients.c
+1683326588 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/clients.c
 	"Headers/clients.h"
 
-1683146105 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/clients.h
+1683326588 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/clients.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -17,13 +17,13 @@
 	"utils.h"
 	"IO.h"
 
-1683146369 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/supermercado.c
+1683327416 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/supermercado.c
 	"Headers/supermercado.h"
 
-1683135206 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/listaGenerica.c
+1683330677 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/listaGenerica.c
 	"Headers/listaGenerica.h"
 
-1683125960 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/listaGenerica.h
+1683325246 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/listaGenerica.h
 	<stdio.h>
 	<stdlib.h>
 	"funcionarios.h"
@@ -32,19 +32,19 @@
 1683058968 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/IO.c
 	"Headers/IO.h"
 
-1683039392 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/funcionarios.h
+1683213358 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/funcionarios.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	"utils.h"
 
-1682542117 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/produto.h
+1683213663 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/produto.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
 	"utils.h"
 
-1683133889 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/main.c
+1683213498 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/main.c
 	<time.h>
 	"Lib/Headers/listaGenerica.h"
 	"Lib/Headers/supermercado.h"
@@ -73,7 +73,7 @@
 1683060293 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/utils.c
 	"Headers/utils.h"
 
-1683146105 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/supermercado.h
+1683321683 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/supermercado.h
 	"listaGenerica.h"
 	"produto.h"
 	"clients.h"
@@ -89,7 +89,7 @@
 	<string.h>
 	<pthread.h>
 
-1683146105 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/caixa.h
+1683321983 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/caixa.h
 	"queue.h"
 	<stdio.h>
 	<stdlib.h>
@@ -97,7 +97,7 @@
 	"listaGenerica.h"
 	"utils.h"
 
-1683146105 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/caixa.c
+1683327863 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/caixa.c
 	"Headers/caixa.h"
 
 1682595170 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/IO.h

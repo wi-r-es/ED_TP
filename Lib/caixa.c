@@ -12,9 +12,11 @@ BOX *CriarCaixa(char _id)
     B->in_service=0;
     B->funcionario = NULL;
     B->QUEUE=NULL;
+    B->cashBox=0;
     B->num_produtos_oferecidos=0;
     B->valor_produtos_oferecidos=0;
     B->auxiliary=NULL;
+    B->itemsInQueue=0;
     return B;
 
 }
@@ -47,14 +49,24 @@ void ShowCaixa(void *b)
 
     BOX *B = (BOX *)b;
     printf("\n[*]<%s>[*]\n", __FUNCTION__);
+    //printf("error   000000\n");
     printf("\t[ ]NUMERO CAIXA: [%c]\n", B->numero);
     printf("\t[ ]STATUS: [%s]\n", B->status==0 ? "FECHADA" : "ABERTA" );
+    //printf("error   #################################33\n");
     printf("\t[ ]FUNCIONARIO DA CAIXA: [%s]\n", B->funcionario==NULL ? "SEM FUNCIONARIO DESIGNADO" : "A IR BUSCAR INFORMACAO FUNCIONARIO");
-    if (B->funcionario)
+    //printf("error   11111111111\n");
+    if (B->funcionario &&  B->status)
         ShowEmployee(( (void *)B->funcionario ));
+    /*
 
-
-      // printf("\t[ ]NUMERO CLIENTES FILA: [%d]\n", B->num_clientes_fila);
+    printf("error   222222\n");
+    if(B->status)
+    {
+        if(queueSize(B->QUEUE)>0 )
+        printf("\t[ ]CLIENTS IN  QUEUE: [%d]\n", queueSize(B->QUEUE));
+    }
+    */
+//    printf("\t[ ]NUMERO CLIENTES FILA: [%d]\n", B->num_clientes_fila);
     printf("\t[ ]PRODUTOS OFERECIDOS:\n");
     printf("\t\t[+][-]QUANTIDADE->[%d]\n", B->num_produtos_oferecidos);
     printf("\t\t[+][-]VALOR TOTAL->[%lf]\n", B->valor_produtos_oferecidos);
@@ -69,7 +81,7 @@ void setEmployerTo(void *b, void *e)
 
 }
 
-int getStatus(void *b)
+int getStatus(BOX *b)
 {
     if(!b)
         return -2;
@@ -77,18 +89,25 @@ int getStatus(void *b)
     return B->status;
 }
 
-int getService(void *b)
+int getService(BOX *b)
 {
 
     BOX *B = (BOX *) b;
     return B->in_service;
 }
-void setService(void *b)
+void setService(BOX *b)
 {
     if(!b)
         return;
     BOX *B = (BOX *) b;
     B->in_service=1;
+}
+void unService(BOX *b)
+{
+    if(!b)
+        return;
+    BOX *B = (BOX *) b;
+    B->in_service=0;
 }
 void openCaixa(void *b)
 {
@@ -154,6 +173,12 @@ void setRandomEmployee(void *b, LG *lg)
 
    // }
 }
+void addCash(BOX *b, double money)
+{
+    if (!b)
+        return;
+    b->cashBox+= money;
+}
 void closeCaixa(void *b)
 {
     if(!b)
@@ -177,10 +202,18 @@ int AddToQueue(void *b, void *c)
     return enQueue(q,c);
 }
 
-void AddFreeProd(void *b,void *p)
+void AddFreeProd(BOX *b,void *p)
 {
     if(!b || !p)
         return;
+    b->num_produtos_oferecidos++;
+    b->valor_produtos_oferecidos += getPrice(p);
+}
+int getTotalProducts(void *b)
+{
+     if(!b)
+        return -2;
     BOX *B = (BOX *) b;
-    Product *P = (Product *) p;
+
+   return B->itemsInQueue;
 }

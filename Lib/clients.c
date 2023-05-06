@@ -32,9 +32,13 @@ Client *CriarClient(int _id, char * _name)
     C->inSuper=0;
     C->carrinho=NULL;
     C->tempo_medio_espera=0;
+    C->numP=0;
     C->totalCaixa=0;
     C->totalCompra=0;
-    //C->entrance=NULL;
+    C->totalCash=0;
+    C->entrance=0;
+    C->waiting=0;
+    C->inqueue=0;
     //logging(logging_file, __FUNCTION__, "Client created");
     return C;
 }
@@ -59,7 +63,7 @@ void ShowClient(void *c)
     printf("\t[ ]INQUEUE: [%d]\n\t[ ]INSUPER: [%d]\n", C->inQueue, C->inSuper);
     time_t aux = C->entrance;
     //if(aux)
-        printf("\t\t[$]TIME OF ENTRANCE: [%s]", asctime(localtime(&aux)));
+        printf("\t\t[$]TIME OF ENTRANCE: [%s]\n", asctime(localtime(&aux)));
     //printf("DEGUB4");
 }
 int compClient(void *x, void *y)
@@ -72,12 +76,11 @@ int compClient(void *x, void *y)
 
 }
 
-int SearchClient(void *c, void *_ID)
+int SearchClient(void *c, int _id)
 {
     CLIENTE *C = (CLIENTE *)c;
-    int  *Pt_ID = (int *)_ID;
     int key = C->ID;
-    if (key == *Pt_ID){
+    if (key == _id){
         return 1;
     }
     return 0;
@@ -93,11 +96,10 @@ int SearchClientByName(void *c, void *_name)
     }
     return 0;
 }
-int getIdClient(void *c)
+int getIdClient(Client *c)
 {
-    if(!c) return -2;
-    CLIENTE *C = (CLIENTE *)c;
-    return C->ID;
+    if(!c) return 0;
+    return c->ID;
 }
 int getFlagEntry(void *c)
 {
@@ -120,6 +122,13 @@ void queued(void *c, time_t time)
     CLIENTE *C = (CLIENTE *)c;
     C->inQueue=1;
     C->waiting=time;
+}
+void setQueueEntranceTime(void *c, time_t time)
+{
+    if(!c)
+        return;
+    CLIENTE *C = (CLIENTE *)c;
+    C->inqueue = time;
 }
 time_t getQtime(void *c)
 {
@@ -150,6 +159,10 @@ time_t getTime(void *c)
         return;
     CLIENTE *C = (CLIENTE *)c;
     return C->entrance;
+}
+void takeFromWallet(Client *C, double amount)
+{
+    C->totalCompra += amount;
 }
 /*
 void EntrarSuper(void *c)
