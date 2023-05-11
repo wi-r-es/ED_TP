@@ -37,7 +37,7 @@ SM *CriarSM(char *_name, LG *C, LG *E, LG *P, LG *CX, HASHING *hc, treeNode *r);
 void DestruirSM(SM *sm);
 void ShowSM(SM *sm);
 void startClock(SM *sm);
-
+void *getLeastProductsInQueue(SM *sm);
 void queueing(SM *sm, void *C); // for clients
 void checkQueuesSize(SM *sm);
 void *getClosed(LG *lcx);

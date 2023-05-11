@@ -47,7 +47,7 @@ void ShowHASHING(HASHING *H)
         //printf("\n\tFAIXAAAAA-> [%c]", i);
 
     }
-    getchar();
+    //getchar();
 }
 void ShowFaixa(HASHING *H, int p)
 {

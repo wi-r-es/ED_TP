@@ -18,7 +18,7 @@ ListaGenerica *CriarLG()
 void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t) //fdest pointer to function
 { // one to remove the nodes info aswell 0 to just remove the nodes of the list
     logging(logging_file, __FUNCTION__, "Deleting genericList");
-    if (!lg) return NULL;
+    if (!lg) return;
     NODE *p = lg->head;
     NODE *aux;
     while(p)
@@ -31,36 +31,7 @@ void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t) //fdest pointer
     free(lg);
     logging(logging_file, __FUNCTION__, "GenericList Deleted");
 }
-void removeByID(LG *lg, int _id)
-{
-    //logging(logging_file, __FUNCTION__, "Deleting genericList");
-    if (!lg) return NULL;
-    NODE *p = lg->head;
-    NODE *aux, *prev = NULL;
-    printf("SEARCHING  CLIENT 0\n");
-    while(p)
-    {
-        printf("SEARCHING  CLIENT 11111111111\n");
-        if( SearchClient(p->info, _id) )
-        {
-            printf("client foun 11111111111\n");
-            aux = p;
-            if (prev == NULL) {
-                lg->head = p->next;
-            } else {
-                prev->next = p->next;
-            }
-            free(aux);
-            lg->NEL--;
-            printf("client del 11111111111\n");
-            //logging(logging_file, __FUNCTION__, "GenericList Deleted");
-            return;
-        }
-        printf("SEARCHING  CLIENT 222222222222\n");
-        prev = p;
-        p = p->next;
-    }
-}
+
 void ShowLG(ListaGenerica *lg, void (*f)(void *))
 {
     logging(logging_file, __FUNCTION__, "Showing genericList");

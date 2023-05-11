@@ -6,7 +6,7 @@ int getRandomInt(int min, int max);
 extern void logging(char* datafile, const char *funcname, char *info);
 extern char *logging_file;
 
-Client *CriarClient(int _id, char * _name)
+Client *CriarClient(char *_id, char * _name)
 {
     //logging(logging_file, __FUNCTION__, "Creating client-element");
     Client *C = (Client *) ec_malloc(sizeof(Client));
@@ -17,7 +17,7 @@ Client *CriarClient(int _id, char * _name)
         return NULL;
     }
 
-    C->ID = _id;
+    strcpy(C->ID, _id);
     C->name = (char *)ec_malloc(strlen(_name) + 1);
 
     if(!C->name)
@@ -30,6 +30,7 @@ Client *CriarClient(int _id, char * _name)
     //printf("NM-> %s", C->name);
     C->inQueue=0;
     C->inSuper=0;
+    C->paying=0;
     C->carrinho=NULL;
     C->tempo_medio_espera=0;
     C->numP=0;
@@ -57,30 +58,30 @@ void ShowClient(void *c)
     //printf("DEGUB1");
     printf("\n     [*]<%s>[*]\n", __FUNCTION__);
     //printf("DEGUB2");
-    printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", C->ID, C->name);
+    printf("\t[ ]CODIGO ID: [%s]\n\t[ ]NOME: [%s]\n", C->ID, C->name);
     //writeTesting("testingHash.txt", __FUNCTION__, C->name);
     //printf("DEGUB3");
     printf("\t[ ]INQUEUE: [%d]\n\t[ ]INSUPER: [%d]\n", C->inQueue, C->inSuper);
     time_t aux = C->entrance;
     //if(aux)
-        printf("\t\t[$]TIME OF ENTRANCE: [%s]\n", asctime(localtime(&aux)));
+      //  printf("\t\t[$]TIME OF ENTRANCE: [%s]\n", asctime(localtime(&aux)));
     //printf("DEGUB4");
 }
 int compClient(void *x, void *y)
 {
     CLIENTE *px = (CLIENTE *)x;
     CLIENTE *py = (CLIENTE *)y;
-    if (px->ID == py->ID)
+    if (strcmp(px->ID, py->ID))
         return 1;
     return 0;
 
 }
 
-int SearchClient(void *c, int _id)
+int SearchClient(void *c, char *_id)
 {
     CLIENTE *C = (CLIENTE *)c;
-    int key = C->ID;
-    if (key == _id){
+    char *key = C->ID;
+    if (strcmp(key,_id)==0){
         return 1;
     }
     return 0;
@@ -91,14 +92,14 @@ int SearchClientByName(void *c, void *_name)
     CLIENTE *C = (CLIENTE *)c;
     char *ptr_name = (char *)_name;
     char *key = C->name;
-    if (strcmp(key, ptr_name)){
+    if (strcmp(key, ptr_name)==0){
         return 1;
     }
     return 0;
 }
-int getIdClient(Client *c)
+char *getIdClient(Client *c)
 {
-    if(!c) return 0;
+    if(!c) return NULL;
     return c->ID;
 }
 int getFlagEntry(void *c)
@@ -115,12 +116,28 @@ void setEntry(void *c)
     C->inSuper=1;
     C->carrinho = CriarLG();
 }
-void queued(void *c, time_t time)
+
+int getFlaginQueue(void *c)
+{
+    CLIENTE *C = (CLIENTE *)c;
+    return C->inQueue;
+}
+
+void setInQeueu(void *c)
 {
     if(!c)
         return;
     CLIENTE *C = (CLIENTE *)c;
     C->inQueue=1;
+}
+
+
+void queued(void *c, time_t time)
+{
+    if(!c)
+        return;
+    CLIENTE *C = (CLIENTE *)c;
+    C->paying=1;
     C->waiting=time;
 }
 void setQueueEntranceTime(void *c, time_t time)
@@ -133,7 +150,7 @@ void setQueueEntranceTime(void *c, time_t time)
 time_t getQtime(void *c)
 {
     if(!c)
-        return;
+        return -1;
     CLIENTE *C = (CLIENTE *)c;
     return C->waiting;
 }
@@ -156,7 +173,7 @@ void setEntranceTime(void *c, time_t time)
 time_t getTime(void *c)
 {
     if(!c)
-        return;
+        return -1;
     CLIENTE *C = (CLIENTE *)c;
     return C->entrance;
 }
@@ -211,3 +228,48 @@ void SumTimes(void *c)
 
 }
 
+
+
+void removeByID(LG *lg, char *_id)
+{
+    //logging(logging_file, __FUNCTION__, "Deleting genericList");
+    if (!lg || !_id) return;
+    NODE *p = lg->head;
+    NODE *aux, *prev = NULL;
+    printf("SEARCHING  CLIENT 0\n");
+    printf("##############################################################################################################\n");
+    while(p)
+    {
+       // printf("ID GET FROM CALL _>[%d]\n", _id);
+        //ShowClient(p->info);
+        //printf("ID IN LIST _> [%d]\n", ((int *)p.info)->ID);
+        //printf("SEARCHING  CLIENT 11111111111\n");
+        if( SearchClient(p->info, _id) )
+        {
+            printf("client foun 11111111111\n");
+            ShowClient(p->info);
+            aux = p;
+            if (prev == NULL) {
+                lg->head = p->next;
+            } else {
+                prev->next = p->next;
+            }
+            printf("REMOVE CLIENT \n");
+            //getchar();
+
+            ShowClient(aux->info);
+            //getchar();
+            free(aux);
+            lg->NEL--;
+            printf("client del 11111111111\n");
+            //logging(logging_file, __FUNCTION__, "GenericList Deleted");
+            return;
+        }
+        printf("SEARCHING  CLIENT 222222222222\n");
+        prev = p;
+        p = p->next;
+    }
+
+    printf("[TEST FOR CLIENT NOT REMOVED............]\n\n\n\n");
+    getchar();
+}

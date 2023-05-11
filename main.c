@@ -29,7 +29,7 @@ printf("Simulacao de um Relogio-Acelerado!\n");
 */
 int main()
 {
-        srand(time(NULL));
+   //srand(time(NULL));
     clock_t start_t, end_t;
     start_t = clock();
 
@@ -51,7 +51,7 @@ int main()
     while(1){
             static int var =0;
               //break;
-            printf("1111111111111111111111111111111\n");
+            //printf("1111111111111111111111111111111\n");
             // BREAKING IN THE FUNCTION RUN SOMEWHERE!!!!!!
             run(supermarket);
 
@@ -71,6 +71,13 @@ pessoas devem ser distribuídas pelas restantes caixas;
             printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\r\n\t-----> static var : %d\n\n", var);
     var++;
+    time_t timeToClose = VerTimeRelogio(&supermarket->ROLEX);
+    if (localtime(&timeToClose)->tm_hour == 23 )
+    {
+        printf("It's time to close the supermarket... no more clients able to enter...");
+        /*something more to deal with the clients in the queue here.... */
+        break;
+    }
     /*
     if(var== 101)
         break; */

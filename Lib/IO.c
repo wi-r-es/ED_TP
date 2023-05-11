@@ -25,7 +25,7 @@ void Load_Client(LG *LC, char *letras)
     {
         fgets(BUFFER, 1024, F);
         // printf("Linha: [%s]\n", BUFFER);
-        int ID;
+
         char *NAME;
         int i = 0;
         char *CAMPOS[10];
@@ -37,7 +37,7 @@ void Load_Client(LG *LC, char *letras)
             token = strtok(NULL, "\t\n");
             i++;
         }
-        ID = atoi(CAMPOS[0]);
+        char *ID = CAMPOS[0];
 
         NAME = CAMPOS[1];
         //printf("[][][][][][][]->>>%s[[[[[[[[[[[[[[", NAME);
@@ -232,7 +232,7 @@ void writeToFile(char *b)
     if( write(fd, s, strlen(s)) == -1)
         fatal("in main() while writting buffer to file");
     //closing file
-    if (close(fd) == -1)
+    if ( close(fd) == -1)
         fatal("in main() while closing file");
 }
 

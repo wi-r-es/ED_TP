@@ -34,6 +34,7 @@ void DestruirSM(SM *sm)
         fatal("freeing memory for supermercado failed... ");
         return;
     }
+    DestruirLG(sm->insideSuper,DestruirClient, 0);
     DestruirLG(sm->clients, DestruirClient, 1);
     DestruirLG(sm->employees, DestruirEmployee,1 );
     DestruirLG(sm->produtos, DestruirProduct,1 );
@@ -75,7 +76,7 @@ void startClock(SM *sm)
         fatal("Starting clock for supermercado failed... ");
         return;
     }
-    sm->insideSuper = CriarLG();
+
     //Relogio temp = sm->ROLEX;
     StartRelogio(&sm->ROLEX, 500, "8:30:00");
 }
@@ -86,13 +87,13 @@ void *getClosed(LG *lcx)
         return NULL;
     NODE *box_node = (NODE *) lcx->head;
     NODE *aux;
-    NODE *selected;
+    void *selected;
     while (box_node)
     {
         aux= box_node->next;
         int status = getStatus(box_node->info);
         if (status == 0){
-            selected = box_node;
+            selected = box_node->info;
             break;
         }
         box_node = aux;
@@ -106,7 +107,57 @@ void checkQueuesSize(SM *sm)
         return;
     NODE *box_node = (NODE *) sm->caixas->head;
     NODE *aux;
-    int count ,total, median =0;
+    int count ,total=0 , median =0;
+    int op=0;
+    while (box_node)
+    {
+        aux= box_node->next;
+        int status = getStatus(box_node->info);
+        if (status == 0){
+            box_node =aux;
+        }
+        else if (status==1)
+        {
+            op++;
+            BOX *B = (BOX*) box_node->info;
+            if (queueSize(B->QUEUE) == 10)
+                count++;
+            if ( queueSize(B->QUEUE) >0 )
+                total += queueSize(B->QUEUE);
+            printf( "QUEUESIZE ->%d\n", queueSize(B->QUEUE));
+            box_node = aux;
+        }
+
+    }
+    printf("SMOPEN -> [%d]\n", sm->open);
+    median = total / sm->open;
+
+    printf("TOTAL -> [%d] MEDIAN -> [%d]\n", total, median);
+   // getchar();
+    if( op == sm->caixas->NEL)
+    {
+        printf("MAX NUMBERS OF BOXES OPEN....\nCANNOT OPEN WHATS NOT THERE...\n");
+    }
+    else if((median >= 6 || count == sm->open) && (op < sm->caixas->NEL) )
+    {
+
+        void *ptr = getClosed(sm->caixas);
+        openCaixa(ptr);
+        ShowCaixa(ptr);
+        setRandomEmployee(ptr, sm->employees);
+        sm->open++;
+        printf("NEW BOX OPENENED, TOO MANY CLIENTS INSTORE...\n");
+       // getchar();
+    }
+
+}
+
+void *getLeastProductsInQueue(SM *sm)
+{
+    NODE *box_node = (NODE *) sm->caixas->head;
+    NODE *aux;
+    void *ptr_selected_box = NULL;
+    int temp=1000;
     while (box_node)
     {
         aux= box_node->next;
@@ -117,26 +168,19 @@ void checkQueuesSize(SM *sm)
         else if (status==1)
         {
             BOX *B = (BOX*) box_node->info;
-            if (queueSize(B->QUEUE) == 10)
-                count++;
-            total += queueSize(B->QUEUE);
+            int nTotalProducts = getTotalProducts(box_node->info); // total number of products in the queue
+            if (nTotalProducts < temp )  // )
+            {
+                ptr_selected_box = box_node->info;
+            }
             box_node = aux;
-        }
 
+        }
     }
-    median = total / sm->open;
-    printf("TOTAL -> [%d] MEDIAN -> [%d]\n", total, median);
-    if(median >= 6 || count == sm->open)
-    {
-        void *ptr = getClosed(sm->caixas);
-        openCaixa(ptr);
-        ShowCaixa(ptr);
-        setRandomEmployee(ptr, sm->employees);
-        sm->open++;
-        printf("NEW BOX OPENENED, TOO MANY CLIENTS INSTORE...\n");
-    }
+    return ptr_selected_box;
 
 }
+
 void queueing(SM *sm, void *C)
 {
     if (!sm || !C) {
@@ -146,10 +190,12 @@ void queueing(SM *sm, void *C)
     NODE *box_node = (NODE *) sm->caixas->head;
     NODE *aux;
     void *ptr_selected_box=NULL;
+    void *ptr_selected_box_aux=NULL;
     int nInQueue=0;
     int minInQueue=MAX_SIZE;
     int allClosed = 1; // flag to check if all boxes are closed
     //printf("QUEUEING 22222\n");
+    int count = 0;
     while (box_node)
     {
         //printf("QUEUEING 333333\n");
@@ -167,7 +213,7 @@ void queueing(SM *sm, void *C)
             allClosed = 0;
             BOX *B = (BOX*) box_node->info;
             nInQueue = queueSize(B->QUEUE);
-            printf("QUEUEEUEUEU SIZE [%d]\n,", nInQueue);
+            //printf("QUEUEEUEUEU SIZE [%d]\n,", nInQueue);
             /*
             if (nInQueue==0){
                 ptr_selected_box = box_node->info;
@@ -177,16 +223,17 @@ void queueing(SM *sm, void *C)
             int nTotalProducts = getTotalProducts(box_node->info); // total number of products in the queue
 
             if (nInQueue == MAX_SIZE){
-                box_node = aux;
+               // box_node = aux;
+                count++;
                 //printf("QUEUEING 7777777777777777777777777\n");
 
             } //maybe change this to only check for num of products in the condition after the OR statement
-            else if (nInQueue < MAX_SIZE && (nInQueue < minInQueue || (nInQueue == minInQueue && nTotalProducts < getTotalProducts(ptr_selected_box))))
+            else if (nInQueue < MAX_SIZE && (nInQueue < minInQueue ||/* (nInQueue == minInQueue && */ nTotalProducts < getTotalProducts(ptr_selected_box)))  // )
             {
                 //printf("QUEUEING 888888888888888888888\n");
                 minInQueue = nInQueue;
                 ptr_selected_box = box_node->info;
-                box_node = aux;
+               // box_node = aux;
                 //printf("QUEUEING 999999999999999999999999999999999\n");
             }
             // se nInQueue < MAX_SIZE && population/ncaixasaberta != 10 openNew..
@@ -195,7 +242,12 @@ void queueing(SM *sm, void *C)
         }
 
     }
-    if (ptr_selected_box)
+    if(count == sm->open)
+    {
+        void *B = getLeastProductsInQueue(sm);
+
+    }
+    else if (ptr_selected_box)
     {
         AddToQueue(ptr_selected_box, C);
         setQueueEntranceTime(C, VerTimeRelogio(&sm->ROLEX));
@@ -370,6 +422,7 @@ void OpenSuperMarket(SM *sm)
         return;
     simulateOpenBoxes(sm);
     ShowLG(sm->caixas, ShowCaixa);
+    sm->insideSuper = CriarLG();
     startClock(sm);
 
 }
@@ -386,10 +439,15 @@ void trasverseList_checkTimes(SM *sm, time_t time_passed)
     {
         //printf("trasverseList_checkTimes 11111111111111111 \n");
         void *ptr = aux->info;
+
         time_t auxiliary_clock = time_passed - ((Client *)ptr)->entrance;
         //printf("trasverseList_checkTimes 222222222222222 \n");
-        if (auxiliary_clock >= ((Client *)ptr)->totalCompra){
+
+
+
+        if (auxiliary_clock >= ((Client *)ptr)->totalCompra && getFlaginQueue(ptr)==0){
             queueing(sm, ptr);
+            setInQeueu(ptr);
             printf("ENTERED QUEUE\n");}
        // printf("trasverseList_checkTimes 3333 \n");
         aux = aux->next;
@@ -434,6 +492,7 @@ void attend(SM *sm, time_t current_time)
     if(!sm)
         return;
     NODE *aux = sm->caixas->head;
+    printf("[][][][][][][][][][][][][][][][][][][][][FUCNTION CALLED -> [%s][][][][][][][][][][][][][]\n", __FUNCTION__);
     while (aux)
     {
         BOX *b = (BOX *)aux->info;
@@ -462,12 +521,28 @@ void attend(SM *sm, time_t current_time)
                     addCash(b,  ptr->totalCash);
                     printf("CLIENTE SERVED\n");
                     //printf("TESTESTESTEST 11111111111\n");
+                    printf("#####################################################\n");
+                    printf("######CLIENT TO BE SERVED AND REMOVED FROM LIST######\n");
+                    printf("#####################################################\n");
+                    ShowClient(b->auxiliary);
                     unService(b);
                     //printf("TESTESTESTEST 222222222222\n");
                     b->auxiliary=NULL;
+                    printf("#####################################################\n");
+                    printf("##########SHOW CLIENTS IN LIST INSIDE SUPER##########\n");
+                    printf("#####################################################\n");
+                    ShowLG(sm->insideSuper, ShowClient);
                     //printf("TESTESTESTEST 333333333333333333\n");
-                    int id =  getIdClient(ptr);
+                    char *id =  getIdClient(ptr);
+
                     removeByID(sm->insideSuper,id );
+                    ShowCaixa(aux->info);
+                    printf("#####################################################\n");
+                    printf("##########SHOW CLIENTS IN LIST INSIDE SUPER##########\n");
+                     printf("##########SHOW CLIENTS AFTER REMOVE#################\n");
+                    printf("#####################################################\n");
+                    ShowLG(sm->insideSuper, ShowClient);
+                    //printf("TESTESTESTEST 33333333333333333
                     //printf("TESTESTESTEST 44444444444444444\n");
                     sm->Population--;
                     //rest of the code needed to implement missing
@@ -514,6 +589,9 @@ void run(SM *sm)
     int population = sm->Population;
     printf("ALOALOALOALAO %d \n", population);
     //relogio create
+  //  removeByID(sm->clients, "581612");
+    //ShowLG(sm->clients);
+   // return;
 
     if (sm->Population < 100)
     {
@@ -573,7 +651,8 @@ void run(SM *sm)
     printf("RUUUUUUUUUUUN 77777777777777777777777777777\n");
     ShowSM(sm);
     printf("ENTER TO CONTINUE: \n");
-    getchar();
+    //ShowLG(sm->insideSuper, ShowClient);
+   // getchar();
 
     //printf("POPULATION FULL\n");
 }

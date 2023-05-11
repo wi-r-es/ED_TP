@@ -5,10 +5,10 @@
 1683213629 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/produto.c
 	"Headers/produto.h"
 
-1683326588 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/clients.c
+1683730055 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/clients.c
 	"Headers/clients.h"
 
-1683326588 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/clients.h
+1683730055 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/clients.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -17,19 +17,19 @@
 	"utils.h"
 	"IO.h"
 
-1683327416 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/supermercado.c
+1683801505 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/supermercado.c
 	"Headers/supermercado.h"
 
-1683330677 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/listaGenerica.c
+1683628858 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/listaGenerica.c
 	"Headers/listaGenerica.h"
 
-1683325246 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/listaGenerica.h
+1683628858 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/listaGenerica.h
 	<stdio.h>
 	<stdlib.h>
 	"funcionarios.h"
 	"produto.h"
 
-1683058968 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/IO.c
+1683632001 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/IO.c
 	"Headers/IO.h"
 
 1683213358 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/funcionarios.h
@@ -44,7 +44,7 @@
 	<string.h>
 	"utils.h"
 
-1683213498 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/main.c
+1683726940 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/main.c
 	<time.h>
 	"Lib/Headers/listaGenerica.h"
 	"Lib/Headers/supermercado.h"
@@ -70,10 +70,10 @@
 	<time.h>
 	<string.h>
 
-1683060293 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/utils.c
+1683482477 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/utils.c
 	"Headers/utils.h"
 
-1683321683 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/supermercado.h
+1683730501 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/supermercado.h
 	"listaGenerica.h"
 	"produto.h"
 	"clients.h"
@@ -120,7 +120,7 @@
 1682597225 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/queue.c
 	"Headers/queue.h"
 
-1683059535 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/hashing.c
+1683645599 source:/home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/hashing.c
 	"Headers/hashing.h"
 
 1682594221 /home/nameless/Documents/workplace/ED/Trabalho Pratico/codeblocksproject/new/PED/Lib/Headers/hashing.h
