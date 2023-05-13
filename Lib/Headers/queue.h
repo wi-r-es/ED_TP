@@ -12,5 +12,4 @@ int queueSize(LG *lg);
 int enQueue(LG *lg, void *x);
 void *deQueue(LG *lg);
 
-
 #endif // QUEUE_H_INCLUDED

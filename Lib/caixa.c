@@ -2,33 +2,36 @@
 
 #define MINQUEUE = 3
 
-
 BOX *CriarCaixa(char _id)
 {
-    BOX *B = (BOX *) ec_malloc(sizeof(BOX));
-    if(!B){return NULL;}
+    BOX *B = (BOX *)ec_malloc(sizeof(BOX));
+    if (!B)
+    {
+        return NULL;
+    }
     B->numero = _id;
-    B->status =0;
-    B->in_service=0;
+    B->status = 0;
+    B->in_service = 0;
+    B->closing = 0;
     B->funcionario = NULL;
-    B->QUEUE=NULL;
-    B->cashBox=0;
-    B->num_produtos_oferecidos=0;
-    B->valor_produtos_oferecidos=0;
-    B->auxiliary=NULL;
-    B->itemsInQueue=0;
+    B->QUEUE = NULL;
+    B->cashBox = 0;
+    B->num_produtos_oferecidos = 0;
+    B->valor_produtos_oferecidos = 0;
+    B->auxiliary = NULL;
+    B->itemsInQueue = 0;
     return B;
-
 }
 
 void GenerateBoxes(LG *lcx)
 {
-    int ger = getRandomInt(3,10);
-    //printf("[%d]\n", ger);
-    char id_caixa='A';
+    int ger = getRandomInt(3, 10);
+    // printf("[%d]\n", ger);
+    char id_caixa = 'A';
 
-    for(int i=0; i<ger; i++){
-        BOX *cc= CriarCaixa(id_caixa);
+    for (int i = 0; i < ger; i++)
+    {
+        BOX *cc = CriarCaixa(id_caixa);
         if (!cc)
         {
             fatal("In generating boxes...");
@@ -49,14 +52,15 @@ void ShowCaixa(void *b)
 
     BOX *B = (BOX *)b;
     printf("\n[*]<%s>[*]\n", __FUNCTION__);
-    //printf("error   000000\n");
+    // printf("error   000000\n");
     printf("\t[ ]NUMERO CAIXA: [%c]\n", B->numero);
-    printf("\t[ ]STATUS: [%s]\n", B->status==0 ? "FECHADA" : "ABERTA" );
-    //printf("error   #################################33\n");
-    printf("\t[ ]FUNCIONARIO DA CAIXA: [%s]\n", B->funcionario==NULL ? "SEM FUNCIONARIO DESIGNADO" : "A IR BUSCAR INFORMACAO FUNCIONARIO");
-    //printf("error   11111111111\n");
-    if (B->funcionario &&  B->status)
-        ShowEmployee(( (void *)B->funcionario ));
+    printf("\t[ ]STATUS: [%s]\n", B->status == 0 ? "FECHADA" : "ABERTA");
+    printf("\t[ ]CLOSING STATUS: [%s]\n", B->closing == 0 ? "OPEN" : "CLOSING SOON");
+    // printf("error   #################################33\n");
+    printf("\t[ ]FUNCIONARIO DA CAIXA: [%s]\n", B->funcionario == NULL ? "SEM FUNCIONARIO DESIGNADO" : "A IR BUSCAR INFORMACAO FUNCIONARIO");
+    // printf("error   11111111111\n");
+    if (B->funcionario && B->status)
+        ShowEmployee(((void *)B->funcionario));
     /*
 
     printf("error   222222\n");
@@ -66,70 +70,108 @@ void ShowCaixa(void *b)
         printf("\t[ ]CLIENTS IN  QUEUE: [%d]\n", queueSize(B->QUEUE));
     }
     */
-//    printf("\t[ ]NUMERO CLIENTES FILA: [%d]\n", B->num_clientes_fila);
+    //    printf("\t[ ]NUMERO CLIENTES FILA: [%d]\n", B->num_clientes_fila);
     printf("\t[ ]PRODUTOS OFERECIDOS:\n");
     printf("\t\t[+][-]QUANTIDADE->[%d]\n", B->num_produtos_oferecidos);
     printf("\t\t[+][-]VALOR TOTAL->[%lf]\n", B->valor_produtos_oferecidos);
+}
+void ShowOpenCaixa(void *b)
+{
+    if (!b)
+        return;
+    BOX *B = (BOX *)b;
+    if (B->status == 1)
+    {
+        printf("\n[*]<%s>[*]\n", __FUNCTION__);
+        printf("\t[ ]NUMERO CAIXA: [%c]\n", B->numero);
+        printf("\t[ ]FUNCIONARIO DA CAIXA: A IR BUSCAR INFORMACAO FUNCIONARIO\n");
+        ShowEmployee(((void *)B->funcionario));
+        printf("\t[ ]QUEUE SIZE -> [%d]\n", queueSize(B->QUEUE));
+        printf("\t[ ]PRODUTOS OFERECIDOS:\n");
+        printf("\t\t[+][-]QUANTIDADE->[%d]\n", B->num_produtos_oferecidos);
+        printf("\t\t[+][-]VALOR TOTAL->[%lf]\n", B->valor_produtos_oferecidos);
+    }
 }
 void setEmployerTo(void *b, void *e)
 {
     if (!b || !e)
         return;
-    Employee *E = (Employee *) e;
-    BOX *B = (BOX *) b;
+    Employee *E = (Employee *)e;
+    BOX *B = (BOX *)b;
     B->funcionario = E;
-
 }
 
-int getStatus(BOX *b)
+int getStatus(void *b)
 {
-    if(!b)
+    if (!b)
         return -2;
-    BOX *B = (BOX *) b;
+    BOX *B = (BOX *)b;
     return B->status;
 }
 
-int getService(BOX *b)
+int getService(void *b)
 {
-
-    BOX *B = (BOX *) b;
+    if (!b)
+        return;
+    BOX *B = (void *)b;
     return B->in_service;
 }
-void setService(BOX *b)
+void setService(void *b)
 {
-    if(!b)
+    if (!b)
         return;
-    BOX *B = (BOX *) b;
-    B->in_service=1;
+    BOX *B = (BOX *)b;
+    B->in_service = 1;
 }
-void unService(BOX *b)
+void unService(void *b)
 {
-    if(!b)
+    if (!b)
         return;
-    BOX *B = (BOX *) b;
-    B->in_service=0;
+    BOX *B = (BOX *)b;
+    B->in_service = 0;
+}
+int getClosingStatus(void *b)
+{
+    if (!b)
+        return;
+    BOX *B = (BOX *)b;
+    return B->closing;
+}
+void setClosingStatus(void *b)
+{
+    if (!b)
+        return;
+    BOX *B = (BOX *)b;
+    B->closing = 1;
+}
+void unsetClosingStatus(void *b)
+{
+    if (!b)
+        return;
+    BOX *B = (BOX *)b;
+    B->closing = 0;
 }
 void openCaixa(void *b)
 {
-    if(!b)
+    if (!b)
         return;
-    BOX *B = (BOX *) b;
+    BOX *B = (BOX *)b;
     B->QUEUE = CriarLG();
-    B->status=1;
+    B->status = 1;
 }
 void setAux(void *b, void *c)
 {
-    if(!b || !c)
+    if (!b || !c)
         return;
-    BOX *B = (BOX *) b;
+    BOX *B = (BOX *)b;
     B->auxiliary = c;
 }
 void setRandomEmployee(void *b, LG *lg)
 {
-    if(!b || !lg)
+    if (!b || !lg)
         return;
-    BOX *B = (BOX *) b;
-    int pos = getRandomInt(0,lg->NEL-1);
+    BOX *B = (BOX *)b;
+    int pos = getRandomInt(0, lg->NEL - 1);
     /*
     NODE *aux = lg->head;
     for(int i=0; i<pos; i++)
@@ -157,63 +199,65 @@ void setRandomEmployee(void *b, LG *lg)
             count++;
         }
         */
-        NODE *aux = getByPos(lg, pos);
-        if(!aux)
-        {
-            setRandomEmployee(b, lg);
-            return;
-        }
-        if(getStatusE(aux->info)==1)
-        {
-            setRandomEmployee(b,lg);
-            return;
-        }
-        setToWork(aux->info);
-        B->funcionario = aux->info;
+    NODE *aux = getByPos(lg, pos);
+    if (!aux)
+    {
+        setRandomEmployee(b, lg);
+        return;
+    }
+    if (getStatusE(aux->info) == 1)
+    {
+        setRandomEmployee(b, lg);
+        return;
+    }
+    setToWork(aux->info);
+    B->funcionario = aux->info;
 
-   // }
+    // }
 }
 void addCash(BOX *b, double money)
 {
     if (!b)
         return;
-    b->cashBox+= money;
+    b->cashBox += money;
+}
+LG *InstantcloseCaixa(void *b)
+{
+    if (!b)
+        return NULL;
+    BOX *B = (BOX *)b;
+    B->status = 0;
+    return B->QUEUE;
 }
 void closeCaixa(void *b)
 {
-    if(!b)
+    if (!b)
         return;
-    BOX *B = (BOX *) b;
-}
-void closeCaixa_if_min_not_satisfied(void *b)
-{
-    if(!b)
-        return;
-    BOX *B = (BOX *) b;
-
-    B->status=0;
+    BOX *B = (BOX *)b;
+    DestruirLG(B->QUEUE, DestruirCaixa, 0);
+    B->QUEUE = NULL;
 }
 int AddToQueue(void *b, void *c)
 {
-    if(!b || !c)
+    if (!b || !c)
         return -2;
-    BOX *B = (BOX *) b;
+    BOX *B = (BOX *)b;
     LG *q = B->QUEUE;
-    return enQueue(q,c);
+    return enQueue(q, c);
 }
 
-void AddFreeProd(BOX *b,void *p)
+void AddFreeProd(BOX *b, void *p)
 {
-    if(!b || !p)
+    if (!b || !p)
         return;
     b->num_produtos_oferecidos++;
     b->valor_produtos_oferecidos += getPrice(p);
 }
 int getTotalProducts(void *b)
 {
-     if(!b)
+    if (!b)
         return -2;
-    BOX *B = (BOX *) b;
+    BOX *B = (BOX *)b;
 
-   return B->itemsInQueue;
+    return B->itemsInQueue;
 }

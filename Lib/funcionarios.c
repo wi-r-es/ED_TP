@@ -1,23 +1,22 @@
 #include "Headers/funcionarios.h"
 
-
-Employee *CriarEmployee(int _id, char * _name)
+Employee *CriarEmployee(int _id, char *_name)
 {
     Employee *E = (Employee *)ec_malloc(sizeof(Employee));
-    if(!E)
+    if (!E)
     {
         fatal("in CriarEmployee(), allocation for Employee failed... ");
         return NULL;
     }
     E->ID = _id;
     E->name = (char *)ec_malloc(strlen(_name) + 1);
-    if(!E->name)
+    if (!E->name)
     {
         fatal("in CriarEmployee(), allocation for name in Employee failed... ");
         return NULL;
     }
 
-    E->working=0;
+    E->working = 0;
     strcpy(E->name, _name);
     return E;
 }
@@ -30,21 +29,19 @@ void DestruirEmployee(void *e)
 void ShowEmployee(void *e)
 {
     Employee *E = (Employee *)e;
-    printf("\n[*][%s][*]\n", __FUNCTION__);
-    printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", E->ID, E->name);
-
+    printf("\n\t[*][%s][*]\n", __FUNCTION__);
+    printf("\t\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", E->ID, E->name);
 }
 void ShowEmployeeInSuper(void *e)
 {
     Employee *E = (Employee *)e;
-    if(E->working)
+    if (E->working)
     {
         printf("\n\t[*][%s][*]\n", __FUNCTION__);
-        printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", E->ID, E->name);
+        printf("\t\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", E->ID, E->name);
     }
-    //printf("\n[*][%s][*]\n", __FUNCTION__);
-    //printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", E->ID, E->name);
-
+    // printf("\n[*][%s][*]\n", __FUNCTION__);
+    // printf("\t[ ]CODIGO ID: [%d]\n\t[ ]NOME: [%s]\n", E->ID, E->name);
 }
 int compEmployee(void *x, void *y)
 {
@@ -54,14 +51,14 @@ int compEmployee(void *x, void *y)
     if (ex->ID == ey->ID)
         return 1;
     return 0;
-
 }
 int SearchEmployee(void *e, void *_ID)
 {
     Employee *E = (Employee *)e;
-    int  *Pt_ID = (int *)_ID;
+    int *Pt_ID = (int *)_ID;
     int key = E->ID;
-    if (key == *Pt_ID){
+    if (key == *Pt_ID)
+    {
         return 1;
     }
     return 0;
@@ -79,10 +76,12 @@ int getStatusE(void *e)
 void setToWork(void *e)
 {
     Employee *E = (Employee *)e;
-    E->working=1;
+    E->working = 1;
 }
 void setToRest(void *e)
 {
+    // if(!e)
+    // return;
     Employee *E = (Employee *)e;
-    E->working=0;
+    E->working = 0;
 }

@@ -7,7 +7,7 @@
 #include "listaGenerica.h"
 #include "clients.h"
 
-//FOR TESTING
+// FOR TESTING
 #include "IO.h"
 
 /*
@@ -17,14 +17,13 @@ typedef struct
 {
     char Faixa;
     ListaGenerica *Clientes;
-}GROUP;
+} GROUP;
 typedef struct
 {
-    //GROUP DADOS[NUM_ENTRADAS];
+    // GROUP DADOS[NUM_ENTRADAS];
     GROUP *DADOS;
     int NEL;
-}HASHING;
-
+} HASHING;
 
 HASHING *CriarHASHING(char *str);
 void DestruirHASHING(HASHING *H);
@@ -34,8 +33,5 @@ int AddHASHING(HASHING *H, void *c);
 int FuncaoHASHING(HASHING *H, void *c);
 void LoadHashingFromLinkedList(HASHING *hash_table, LG *C);
 void *getElementInFaixa_Pos(HASHING *hash_table, int f, int p);
-
-
-
 
 #endif // HASHING_H_INCLUDED

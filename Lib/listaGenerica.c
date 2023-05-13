@@ -1,30 +1,33 @@
 #include "Headers/listaGenerica.h"
 
 extern void *ec_malloc(unsigned int size);
-extern void logging(char* datafile, const char *funcname, char *info);
+extern void logging(char *datafile, const char *funcname, char *info);
 extern char *logging_file;
 
 ListaGenerica *CriarLG()
 {
     logging(logging_file, __FUNCTION__, "Creating genericList");
     ListaGenerica *L = (ListaGenerica *)ec_malloc(sizeof(ListaGenerica));
-    if (!L) return NULL;
+    if (!L)
+        return NULL;
     L->head = NULL;
     L->tail = NULL;
     L->NEL = 0;
     logging(logging_file, __FUNCTION__, "GenericList Created");
     return L;
 }
-void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t) //fdest pointer to function
-{ // one to remove the nodes info aswell 0 to just remove the nodes of the list
+void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t) // fdest pointer to function
+{                                                                // one to remove the nodes info aswell 0 to just remove the nodes of the list
     logging(logging_file, __FUNCTION__, "Deleting genericList");
-    if (!lg) return;
+    if (!lg)
+        return;
     NODE *p = lg->head;
     NODE *aux;
-    while(p)
+    while (p)
     {
         aux = p->next;
-        if (t == 1) fdest(p->info); // pointer to the function to clear the info inside LG
+        if (t == 1)
+            fdest(p->info); // pointer to the function to clear the info inside LG
         free(p);
         p = aux;
     }
@@ -35,9 +38,13 @@ void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t) //fdest pointer
 void ShowLG(ListaGenerica *lg, void (*f)(void *))
 {
     logging(logging_file, __FUNCTION__, "Showing genericList");
-    if (!lg) { printf("DEBUG");return;}
+    if (!lg)
+    {
+        printf("DEBUG");
+        return;
+    }
     NODE *p = lg->head;
-    while(p)
+    while (p)
     {
 
         f(p->info);
@@ -48,7 +55,7 @@ void ShowLG(ListaGenerica *lg, void (*f)(void *))
 
 void AddLGInicio(ListaGenerica *lg, void *X) // Adiciona elementos segundo uma pilha/stack
 {
-    //logging(logging_file, __FUNCTION__, "Adding to head-genericList");
+    // logging(logging_file, __FUNCTION__, "Adding to head-genericList");
     if (!lg || !X)
         return;
     NODE *p = (NODE *)ec_malloc(sizeof(NODE));
@@ -59,12 +66,12 @@ void AddLGInicio(ListaGenerica *lg, void *X) // Adiciona elementos segundo uma p
     p->info = X;
     lg->head = p;
     lg->NEL++;
-    //logging(logging_file, __FUNCTION__, "Adding successfull");
+    // logging(logging_file, __FUNCTION__, "Adding successfull");
 }
 
-void AddLGFim(LG *lg, void *x) //Adicionar no fim
+void AddLGFim(LG *lg, void *x) // Adicionar no fim
 {
-    //logging(logging_file, __FUNCTION__, "Adding to tail-genericList");
+    // logging(logging_file, __FUNCTION__, "Adding to tail-genericList");
     if (!lg || !x)
         return;
     /*
@@ -92,11 +99,11 @@ void AddLGFim(LG *lg, void *x) //Adicionar no fim
 
     NODE *aux = (NODE *)ec_malloc(sizeof(NODE));
     if (!aux)
-        return ; // Erro de alocacao de memoria before it returned -4
+        return; // Erro de alocacao de memoria before it returned -4
     aux->info = x;
     aux->next = NULL;
     if (!lg->head)
-        lg->head=aux;
+        lg->head = aux;
     else
     {
         NODE *iterator = lg->head;
@@ -106,30 +113,32 @@ void AddLGFim(LG *lg, void *x) //Adicionar no fim
         lg->tail = aux;
     }
     lg->NEL++;
-    //printf("\n DEBUG el add");
-    //logging(logging_file, __FUNCTION__, "Adding successfull");
+    // printf("\n DEBUG el add");
+    // logging(logging_file, __FUNCTION__, "Adding successfull");
 }
 
 int PertenceLG(ListaGenerica *lg, void *X, int (*fcomp)(void *, void *))
 {
-    //logging(logging_file, __FUNCTION__, "Checking if given element belongs to list");
-    if (!lg || !X) return 0;
+    // logging(logging_file, __FUNCTION__, "Checking if given element belongs to list");
+    if (!lg || !X)
+        return 0;
     NODE *p = lg->head;
-    while(p)
+    while (p)
     {
-        if (fcomp(p->info, X) == 1) return 1;
+        if (fcomp(p->info, X) == 1)
+            return 1;
         p = p->next;
     }
     return 0;
 }
 
-void* SearchLG(LG *lg, void *key, int (*fsearch)(void*, void*))
+void *SearchLG(LG *lg, void *key, int (*fsearch)(void *, void *))
 {
-    //logging(logging_file, __FUNCTION__, "Searching for given element belongs in list");
+    // logging(logging_file, __FUNCTION__, "Searching for given element belongs in list");
     if (!lg || !key)
         return NULL;
     NODE *p = lg->head;
-    while(p)
+    while (p)
     {
         if (fsearch(p->info, key) == 1)
             return p->info;
@@ -138,17 +147,15 @@ void* SearchLG(LG *lg, void *key, int (*fsearch)(void*, void*))
     return NULL;
 }
 
-void* getByPos(LG *lg, int p)
+void *getByPos(LG *lg, int p)
 {
 
-    if(!lg)
+    if (!lg)
         return NULL;
     NODE *aux = lg->head;
-    for(int i=0; i<p; i++)
+    for (int i = 0; i < p; i++)
     {
-         aux = aux->next;
+        aux = aux->next;
     }
     return aux;
 }
-
-

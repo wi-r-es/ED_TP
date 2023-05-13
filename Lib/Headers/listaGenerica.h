@@ -3,15 +3,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//#include "clients.h"
+// #include "clients.h"
 #include "funcionarios.h"
 #include "produto.h"
-//#include "supermercado.h"
-
-
-
-
-
+// #include "supermercado.h"
 
 typedef struct NODE
 {
@@ -19,14 +14,14 @@ typedef struct NODE
     struct NODE *next;
     struct NODE *prev;
 
-}NODE;
+} NODE;
 
 typedef struct
 {
     int NEL;
     NODE *head;
     NODE *tail;
-}ListaGenerica, LG;
+} ListaGenerica, LG;
 /*
 typedef struct
 {
@@ -39,10 +34,8 @@ void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t);
 void ShowLG(ListaGenerica *lg, void (*f)(void *));
 void AddLGFim(ListaGenerica *lg, void *X); // add stack
 void AddLGInicio(ListaGenerica *lg, void *X);
-void* SearchLG(LG *lg, void *key, int (*fsearch)(void*, void*));
+void *SearchLG(LG *lg, void *key, int (*fsearch)(void *, void *));
 int PertenceLG(ListaGenerica *lg, void *X, int (*fcomp)(void *, void *));
-void* getByPos(LG *lg, int p);
-
-
+void *getByPos(LG *lg, int p);
 
 #endif // LISTAGENERICA_H_INCLUDED

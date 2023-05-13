@@ -16,11 +16,8 @@ void Load_Client(LG *LC, char *letras);
 void Load_Funcionario(LG *LF);
 void Load_Produtos(LG *LP);
 
-
-//for tests purposes
+// for tests purposes
 void writeToFile(char *b);
 void writeTesting(char *datafile, char *funcname, char *info);
-
-
 
 #endif // IO_H_INCLUDED

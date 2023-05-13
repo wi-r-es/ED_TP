@@ -6,10 +6,9 @@
 #include <string.h>
 #include "utils.h"
 
-
-
-typedef struct PRODUTO {
-    int COD; //codigo
+typedef struct PRODUTO
+{
+    int COD; // codigo
     char *name;
     double preco;
     char *marca;
@@ -21,11 +20,11 @@ typedef struct PRODUTO {
     float TCOMPRA;
     float TCAIXA;
     int stock;
-    //struct produto *next;
-}Product, *ptr_product;
+    // struct produto *next;
+} Product, *ptr_product;
 
-Product *CriarProduct(int _id, char * _name, double _price, char * _marca, char * _info, float _tcp, float _tcx);
-//Product *CriarProduct(int _id, char * _name, double _price, char * _marca, int _unit_size, char *_unit_type, float _tcp, float _tcx);
+Product *CriarProduct(int _id, char *_name, double _price, char *_marca, char *_info, float _tcp, float _tcx);
+// Product *CriarProduct(int _id, char * _name, double _price, char * _marca, int _unit_size, char *_unit_type, float _tcp, float _tcx);
 void DestruirProduct(void *p);
 void ShowProduct(void *p);
 int compProduct(void *x, void *y);
@@ -35,5 +34,3 @@ double getPrice(void *p);
 float getProductTimeToGet(void *p);
 float getProductTimeToBuy(void *p);
 #endif // PRODUTO_H_INCLUDED
-
-

@@ -18,20 +18,21 @@
 // TO lock random generator
 #include <pthread.h>
 
-
-typedef struct SUPERMERCADO {
+typedef struct SUPERMERCADO
+{
     char *COMPANY;
     LG *clients;
     LG *employees;
     LG *produtos;
     LG *caixas;
     LG *insideSuper;
-    treeNode *prodTree; //arvore de produtos
+    treeNode *prodTree; // arvore de produtos
     HASHING *clientsHash;
     int Population;
     short int open;
     Relogio ROLEX;
-}Supermercado, SM;
+    int served;
+} Supermercado, SM;
 
 SM *CriarSM(char *_name, LG *C, LG *E, LG *P, LG *CX, HASHING *hc, treeNode *r);
 void DestruirSM(SM *sm);
@@ -42,15 +43,18 @@ void queueing(SM *sm, void *C); // for clients
 void checkQueuesSize(SM *sm);
 void *getClosed(LG *lcx);
 void getItems(void *c);
-//int compSM(void *x, void *y);
-void trasverseList_checkTimes(SM *sm , time_t time_passed);
-void trasverseQueueBox(SM *sm , time_t current_time);
+// int compSM(void *x, void *y);
+void trasverseList_checkTimes(SM *sm, time_t time_passed);
+void trasverseQueueBox(SM *sm, time_t current_time);
 void attend(SM *sm, time_t current_time);
 void OpenSuperMarket(SM *sm);
 void simulateOpenBoxes(SM *sm);
 void *simulateEntrance(SM *sm);
 void getItemsToBuy(void *c, treeNode *root);
 void *getPricyProduct(Client *C);
-void run(SM *sm);
+void trasverseBoxes(SM *sm);
+void *getBoxLesserQueue(SM *sm);
+void caixaClose(SM *sm, void *b);
+void run(SM *sm, int flag);
 
 #endif // SUPERMERCADO_H_INCLUDED

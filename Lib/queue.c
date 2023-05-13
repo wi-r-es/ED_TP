@@ -1,38 +1,37 @@
 #include "Headers/queue.h"
 
-
-
 int isEmptyQueue(LG *lg)
 {
-    if(!lg)
+    if (!lg)
         return -2;
     // returns 1 if not empty 0 if empty
-    return (lg->head==NULL);
+    return (lg->head == NULL);
 }
 
 int queueSize(LG *lg)
 {
-    if(!lg)
+    if (!lg)
         return -2;
     // returns 1 if not empty 0 if empty
     return lg->NEL;
 }
-//ENQUEUE || addLGFim
-int enQueue(LG *lg, void *x) //Adicionar no fim | Useful for queue
+// ENQUEUE || addLGFim
+int enQueue(LG *lg, void *x) // Adicionar no fim | Useful for queue
 {
-    //logging(logging_file, __FUNCTION__, "Adding to tail-genericList");
+    // logging(logging_file, __FUNCTION__, "Adding to tail-genericList");
     if (!lg)
         return -2;
-    if (lg->NEL == MAX_SIZE)
-    {
-        printf("Queue is full... ");
-        return 0; //BOX IS FULL
-    }
+    /*
+if (lg->NEL == MAX_SIZE)
+{
+    printf("Queue is full... ");
+    return 0; //BOX IS FULL
+} */
 
-    AddLGFim(lg,x);
+    AddLGFim(lg, x);
 
     return 1;
-    //logging(logging_file, __FUNCTION__, "Adding successfull");
+    // logging(logging_file, __FUNCTION__, "Adding successfull");
 }
 void *deQueue(LG *lg)
 {
@@ -41,7 +40,7 @@ void *deQueue(LG *lg)
         printf("NULL pointer given...");
         return NULL;
     }
-    //NODE *aux = (NODE *) x;
+    // NODE *aux = (NODE *) x;
     if (isEmptyQueue(lg))
     {
         printf("Error: Qeueu is empty");
@@ -62,8 +61,7 @@ void *deQueue(LG *lg)
     return _el;
 }
 
-
-//LATER
+// LATER
 /*
 void changeQueue(Client *client, Queue *currentQueue, Queue *newQueue) {
     if (currentQueue == newQueue) {
