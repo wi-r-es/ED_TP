@@ -134,6 +134,7 @@ void *getElementInFaixa_Pos(HASHING *hash_table, int f, int p)
     if (!hash_table)
         return NULL;
     // printf("\nDEBUGG->1.....\n");
+    /**< get LL of given faixa f */
     LG *lg = hash_table->DADOS[f].Clientes;
     if (!lg || lg->NEL < p)
         return NULL;

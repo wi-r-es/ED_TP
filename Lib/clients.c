@@ -35,8 +35,8 @@ Client *CriarClient(char *_id, char *_name)
     C->carrinho = NULL;
     //    C->tempo_medio_espera=0;
     C->numP = 0;
-    C->totalCaixa = 0;
-    C->totalCompra = 0;
+    C->totalCaixa = 0.0;
+    C->totalCompra = 0.0;
     C->totalCash = 0;
     C->entrance = 0;
     C->waiting = 0;
@@ -63,7 +63,12 @@ void ShowClient(void *c)
     // writeTesting("testingHash.txt", __FUNCTION__, C->name);
     // printf("DEGUB3");
     printf("\t[ ]INQUEUE: [%d]\n\t[ ]INSUPER: [%d]\n", C->inQueue, C->inSuper);
-    time_t aux = C->entrance;
+    printf("\t[ ]time to get: [%f]\n\t[ ]time to scan: [%f]\n", C->totalCompra, C->totalCaixa);
+    //time_t aux = C->entrance;
+    if(C->inSuper)
+    {
+        printf("\t[ ]time queued: [%f]\n\t[ ]time to unqueued: [%f]\n", C->inqueue, C->waiting);
+    }
     // if(aux)
     //   printf("\t\t[$]TIME OF ENTRANCE: [%s]\n", asctime(localtime(&aux)));
     // printf("DEGUB4");
@@ -199,7 +204,23 @@ void EntrarSuper(void *c)
     }
     /
 } */
+/*
+void AddTimeCompra(void *c, float needed_time)
+{
+    if (!c)
+        return;
+    CLIENTE *C = (CLIENTE *)c;
+    float temp = C->totalCompra;
+    temp += needed_time;
+    printf("[%f]\n", temp);
+    C->totalCompra = temp;
+    return;
 
+}
+void AddTimeCaixa(void *c)
+{
+
+} */
 void SumTimes(void *c)
 {
     // printf("SUMSUSMSUMSUMSUM 0 \n");
@@ -215,16 +236,28 @@ void SumTimes(void *c)
     }
     // printf("SUMSUSMSUMSUMSUM 03 \n");
     NODE *aux = C->carrinho->head;
-    while (aux != NULL) /**< Trasverse carrinho and adds its time values to the client so its easier to access the total time later. */
+    while (aux != NULL) /**< Traverse carrinho and adds its time values to the client so its easier to access the total time later. */
     {
         // printf("SUMSUSMSUMSUMSUM 04 \n");
         Product *P = (Product *)aux->info;
+        ShowProduct(aux->info);
         // printf("SUMSUSMSUMSUMSUM 55 \n");
-        C->totalCaixa += P->TCAIXA;
-        C->totalCompra += P->TCOMPRA;
+        //float caixa = getProductTimeToGet(aux->info);
+        //float compra = getProductTimeToBuy(aux->info);
+        //printf("TIME COMPRA:[%f] TIME TO SCAN[%f]", caixa, compra);
+        //AddTimeCompra(c, P->TCOMPRA);
+        //ShowClient(c); getchar();
+        //C->totalCompra += compra;
+        C->totalCaixa +=  getProductTimeToGet(aux->info);
+        C->totalCompra += getProductTimeToBuy(aux->info);
+        //ShowClient(c); getchar();
         // printf("SUMSUSMSUMSUMSUM 6664 \n");
         aux = aux->next;
     }
+    //ShowClient(c); getchar();
+    //printf("TIME COMPRA:[%f] TIME TO SCAN[%f]", C->totalCompra, C->totalCaixa);
+    //
+    //getchar();
 }
 
 void removeByID(LG *lg, char *_id)

@@ -62,6 +62,7 @@ void logging(char *datafile, const char *funcname, char *info)
     fclose(F);
 }
 
+
 // A function to display an error message and then exit
 void fatal(char *message)
 {

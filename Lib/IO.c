@@ -61,7 +61,7 @@ void Load_Client(LG *LC, char *letras)
 
         char first_char = toupper(NAME[0]);
         // stores the char if its not already in the array
-
+        /**< only stores unique initials so there are no duplicates, this way a dynamic hashtable can be created */
         if (isalpha(first_char))
         {
             int found = 0;
@@ -200,9 +200,9 @@ void Load_Produtos(LG *LP)
         {
             _info = token;
         }
-        float TCOMPRA = strtof(s1, NULL); // Usando a funcao strtof para converter a string para um float tambem poderia ser a funcao atof e atod...
+        float TCOMPRA = strtof(s1, NULL); /**< usar a funcao strtof para converter a string para um float tambem poderia ser a funcao atof e atod... */
         float TCAIXA = strtof(s2, NULL);
-        double PRICE = strtod(s3, NULL); // e strtod para converter a string para um double
+        double PRICE = strtod(s3, NULL); /**< e strtod para converter a string para um double */
         // printf("\n[][][]\t[%f]\t[%f]\t[%lf]\n\n",TCOMPRA, TCAIXA, PRICE); break;
         // printf("[][%d]\n[][%s]\n[][%lf]\n[][%s]\n[%d]\n[][%s]\n[][%f]\n[][%f]...",CODIGO, NAME, PRICE, MARCA, unit_size, unit_type,TCOMPRA, TCAIXA); break;
 

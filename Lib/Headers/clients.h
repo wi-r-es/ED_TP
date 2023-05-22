@@ -1,6 +1,6 @@
 /*******************************************************************************
  *  @file clients.h                                                            *
- *  @brief Function prototypes for the clients ADT.                            *
+ *  @brief Function prototypes for the Client ADT.                             *
  *                                                                             *
  *  This contains the prototypes for the managing of clients elements          *
  *  Set and unset flags used during the simulation to keep track of status.    *
@@ -22,10 +22,10 @@
 /* utils header file */
 #include "utils.h" /* for useful functions, and ec_malloc() used to check errors during allocation */
 /* IO header file */
-#include "IO.h"
+#include "IO.h" //used for texting
 
 /************************************************************************************************************************************************************
- * CLients ADT structure and vars description                                                                                                               *
+ * CLient ADT structure and vars description                                                                                                                *
  * ID                      -> char Array/string of the ID of each client.                                                                                   *
  * name                    -> full name.                                                                                                                    *
  * inQueue                 -> bit field variable. 0 = not in queue; 1 = in queue.                                                                           *
@@ -43,36 +43,33 @@
 typedef struct CLIENTE
 {
   char ID[7];
-  // char ID[6+1];
   char *name;
   unsigned int inQueue : 1;
   unsigned int paying : 1;
   unsigned int inSuper : 1;
   LG *carrinho; // LISTA GENERICA
   int numP;
-  // int tempo_medio_espera;
   float totalCompra;
   float totalCaixa;
   double totalCash;
   time_t entrance; // time getting products
   time_t waiting;  // time getting attended
   time_t inqueue;  // time in queue
-  // struct Client *next;
 } CLIENTE, Client, *ptr_client;
 
-/**************************************************************************************************************************
- * @brief Creates a new instance of the Client struct, and initializes its fields with the given _id and _name arguments. *
- * @param _id :  a string representing the ID of the client.                                                              *
- * @param _name : a string representing the name of the client.                                                           *
- * @see ec_malloc()                                                                                                       *
- * @see fatal()                                                                                                           *
- * @return A pointer to a newly created Client struct/element.                                                            *
- **************************************************************************************************************************/
+/**********************************************************************************************************************************
+ * @brief Creates a new instance of the Client struct/element, and initializes its fields with the given _id and _name arguments. *
+ * @param _id :  a string representing the ID of the client.                                                                      *
+ * @param _name : a string representing the name of the client.                                                                   *
+ * @see ec_malloc()                                                                                                               *
+ * @see fatal()                                                                                                                   *
+ * @return A pointer to a newly created Client struct/element.                                                                    *
+ **********************************************************************************************************************************/
 Client *CriarClient(char *_id, char *_name);
 
 /**************************************************************************
  * @brief Frees the memory allocated to a given Client struct/element.    *
- * @param c : a pointer to a client struct/element.                       *
+ * @param c : a pointer to a client struct/element. (Type void*)          *
  * @return None.                                                          *
  **************************************************************************/
 void DestruirClient(void *c);
@@ -92,12 +89,12 @@ void ShowClient(void *c);
  *******************************************************************************/
 int compClient(void *x, void *y);
 
-/*****************************************************************************************
- * @brief Checks if a given Client struct has the same ID field as a given _id string.   *
- * @param c : a pointer to a client struct/element. (Type void*).                        *
- * @param _id : a string representing the ID to be searched.                             *
- * @return 1 if the ID field of the struct is equal to the given _id, 0 otherwise.       *
- *****************************************************************************************/
+/*******************************************************************************************
+ * @brief Checks if a given Client struct has the same ID field as the given _id string.   *
+ * @param c : a pointer to a client struct/element. (Type void*).                          *
+ * @param _id : a string representing the ID to be searched.                               *
+ * @return 1 if the ID field of the struct is equal to the given _id, 0 otherwise.         *
+ *******************************************************************************************/
 int SearchClient(void *c, char *_id);
 
 /********************************************************************************************
@@ -227,6 +224,9 @@ void takeFromWallet(Client *C, double amount);
  * @return None.                                                                                                       *
  ***********************************************************************************************************************/
 void removeByID(LG *lg, char *_id);
+
+
+//void AddTimeCompra(void *c, float needed_time);
 
 // void EntrarSuper(void *c);
 // int PertenceClient(CLIENTE *c, void *X, int (*fcomp)(void *, void *));

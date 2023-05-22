@@ -20,6 +20,8 @@ BOX *CriarCaixa(char _id)
     B->valor_produtos_oferecidos = 0;
     B->auxiliary = NULL;
     B->itemsInQueue = 0;
+    B->served=0;
+    B->totalProducts=0;
     return B;
 }
 
@@ -86,6 +88,8 @@ void ShowOpenCaixa(void *b)
         printf("\t[ ]NUMERO CAIXA: [%c]\n", B->numero);
         printf("\t[ ]FUNCIONARIO DA CAIXA: A IR BUSCAR INFORMACAO FUNCIONARIO\n");
         ShowEmployee(((void *)B->funcionario));
+        if(B->auxiliary)
+            printf("IT HAS A FCKING CLIENT....\n");
         printf("\t[ ]QUEUE SIZE -> [%d]\n", queueSize(B->QUEUE));
         printf("\t[ ]PRODUTOS OFERECIDOS:\n");
         printf("\t\t[+][-]QUANTIDADE->[%d]\n", B->num_produtos_oferecidos);
@@ -236,6 +240,7 @@ void closeCaixa(void *b)
     BOX *B = (BOX *)b;
     DestruirLG(B->QUEUE, DestruirCaixa, 0);
     B->QUEUE = NULL;
+    B->status=0;
 }
 int AddToQueue(void *b, void *c)
 {

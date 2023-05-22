@@ -1,0 +1,37 @@
+**[Simulation Metrics - Date:May 20 2023]**
+==================================
+[]Simulation End Time: [01:49:47]
+[]Total costumers served: [25]
+[][]Per cashier Box plus extra metrics 
+	[+]BOX: [A]
+	<>[**]Designated Employee: Identification:[3562]<=>Name:[Catarina Nicole Silva Silva]
+	   <>[+]Total costumers served: [0]
+	   <>[+]Total products sold: [0]
+	   <>[+]Total products offered: [0] with total value: [0.000000]
+	[+]BOX: [B]
+	<>[**]Designated Employee: Identification:[6697]<=>Name:[Maria Garcia Osório Novo]
+	   <>[+]Total costumers served: [12]
+	   <>[+]Total products sold: [-558]
+	   <>[+]Total products offered: [607] with total value: [3423.200000]
+	[+]BOX: [C]
+	<>[**]Designated Employee: Identification:[5919]<=>Name:[Fabiana Costa Silva Coelho]
+	   <>[+]Total costumers served: [13]
+	   <>[+]Total products sold: [-579]
+	   <>[+]Total products offered: [661] with total value: [4679.500000]
+	[+]BOX: [D]
+	<>[**]Designated Employee: Identification:[8525]<=>Name:[Rita Goncalves Lourenco]
+	   <>[+]Total costumers served: [0]
+	   <>[+]Total products sold: [0]
+	   <>[+]Total products offered: [0] with total value: [0.000000]
+
+[ ]Statistics for better and worst
+	[#]Cashier Box that attended more clients: [C]
+	   >>>Served [13] clients.
+		[#][-]Employee: [5919]<=>[Fabiana Costa Silva Coelho]
+	[#]Cashier Box that sold more products: [C]
+	   >>>Sold [-579] products.
+		[#][-]Employee: [5919]<=>[Fabiana Costa Silva Coelho]
+	[#]Employee who had the worst performance and served less clients:
+		<>[$]Identification:[3562]<=>Name:[Catarina Nicole Silva Silva]
+
+[]Average waiting time in queue: [2380.00] minutes

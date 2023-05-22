@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="ED_TP_Final" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/ED_TP_Final" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/ED_TP_Final" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Files/I/clientes.txt" />
+		<Unit filename="Files/I/funcionarios.txt" />
+		<Unit filename="Files/I/produtos.txt" />
+		<Unit filename="Files/O/logs.csv" />
+		<Unit filename="Lib/Headers/IO.h" />
+		<Unit filename="Lib/Headers/binarytree.h" />
+		<Unit filename="Lib/Headers/caixa.h" />
+		<Unit filename="Lib/Headers/clients.h" />
+		<Unit filename="Lib/Headers/funcionarios.h" />
+		<Unit filename="Lib/Headers/hashing.h" />
+		<Unit filename="Lib/Headers/listaGenerica.h" />
+		<Unit filename="Lib/Headers/produto.h" />
+		<Unit filename="Lib/Headers/queue.h" />
+		<Unit filename="Lib/Headers/supermercado.h" />
+		<Unit filename="Lib/Headers/utils.h" />
+		<Unit filename="Lib/IO.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/binarytree.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/caixa.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/clients.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/funcionarios.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/hashing.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/listaGenerica.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/produto.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/queue.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/supermercado.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Lib/utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

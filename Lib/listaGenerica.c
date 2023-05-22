@@ -74,32 +74,10 @@ void AddLGFim(LG *lg, void *x) // Adicionar no fim
     // logging(logging_file, __FUNCTION__, "Adding to tail-genericList");
     if (!lg || !x)
         return;
-    /*
-    NODE *aux = (NODE *)ec_malloc(sizeof(NODE));
-    if (!aux)
-        return;
-    aux->info = x;
-    aux->next = NULL;
-
-    if (!lg->head)
-    {
-        aux->prev = NULL;
-        lg->head=aux;
-    }
-
-    else
-    {
-        NODE *iterator = lg->head;
-        while (iterator->next)
-            iterator = iterator->next;
-        iterator->next = aux;
-        aux->prev = iterator;
-    }
-    lg->NEL++; */
 
     NODE *aux = (NODE *)ec_malloc(sizeof(NODE));
     if (!aux)
-        return; // Erro de alocacao de memoria before it returned -4
+        return; // Erro de alocacao de memoria
     aux->info = x;
     aux->next = NULL;
     if (!lg->head)
@@ -153,7 +131,7 @@ void *getByPos(LG *lg, int p)
     if (!lg)
         return NULL;
     NODE *aux = lg->head;
-    for (int i = 0; i < p; i++)
+    for (int i = 0; i < p; i++) /**< traverse the LL until the given position */
     {
         aux = aux->next;
     }

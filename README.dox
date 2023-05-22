@@ -1,0 +1,36 @@
+/**
+
+@mainpage Trabalho Pratico de Estrutura de Dados 
+
+@author Jose Machado
+@date 18-05-2023
+
+The Supermarket Simulation is a program that simulates the operations of a supermarket, including customer arrivals, queuing, and cashier service. The program aims to provide a realistic simulation of a supermarket environment and evaluate its performance based on metrics such as customer waiting time and cashier performance.
+
+To run the Supermarket Simulation program, follow these steps:
+
+    Compile the program using a C compiler: 
+     gcc main.c Lib/binarytree.c Lib/caixa.c Lib/clients.c Lib/funcionarios.c Lib/listaGenerica.c Lib/produto.c Lib/queue.c Lib/supermercado.c Lib/utils.c Lib/hashing.c Lib/IO.c Lib/
+     Or import the project to codeBlocks IDE.
+    Execute the program: ./supermarket_simulation.
+    The program will start the simulation without any further interaction, and you will see the simulation progress and relevant statistics displayed on the console.
+    If you hit the keyboard the simulation will halt, and a MENU will appear with various options.
+
+
+During the simulation, customers will arrive at the supermarket, join queues, and be served by cashiers. The program will keep track of customer waiting times, cashier utilization, and other performance metrics.
+
+Special Rules and Design Decisions:
+	Customer Arrival: Customers arrive at the supermarket based on a random arrival rate. The arrival rate can 		be adjusted to simulate different scenarios.
+	Queuing: Customers join the shortest available queue upon arrival. The queuing system follows a first-come, first-served (FCFS) approach.
+	Cashier Service: Cashiers serve customers one at a time. Each customer's service time is determined randomly with the number of products picked and its corresponding times.
+	Performance Metrics: The program tracks and calculates various performance metrics, including average customer waiting time, maximum queue length, and cashier utilization.
+	Time Simulation: The simulation progresses in discrete time steps. Each time step represents a unit of time (e.g., minutes) in the supermarket simulation. The duration of each time step can be adjusted to control the simulation speed. 
+	Stability: The code has been developed with stability in mind, aiming to handle various scenarios and edge cases. However, as with any software, there may be potential bugs or unforeseen issues. Thorough testing and validation are recommended to ensure stability and reliability.
+
+
+The supermarket simulation project provided an opportunity to create a realistic simulation of a supermarket environment. The implementation involved modeling customer arrivals, queuing, and cashier service. Design decisions were made to balance realism and simplicity, ensuring an intuitive user experience.
+
+The project presented a moderate level of challenge, allowing for the application of fundamental programming concepts such as data structures, random number generation, and time simulation. The program's flexibility enables adjustments to various parameters, allowing users to explore different supermarket scenarios and evaluate their impact on performance.
+
+Overall, the project provides an insightful hands-on experience in simulating complex systems and analyzing their behavior.
+*/

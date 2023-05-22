@@ -7,6 +7,13 @@ extern void logging(char *datafile, const char *funcname, char *info);
 extern char *logging_file;
 extern int getRandomInt(int min, int max);
 
+#ifdef _WIN32
+char *metrics_file = "Files\\O\\metrics.txt";
+#else
+char *metrics_file = "Files/O/metrics.txt";
+#endif
+
+void logging_metrics(char *datafile, SM *sm);
 void LoadConfigs(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX, char *l);
 SM *LoadSuper(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX, HASHING *hc, treeNode *r);
 SM *INIT__();
@@ -35,16 +42,18 @@ int main()
     // InOrder(supermarket->prodTree);
     // printf("SIM ENTRANCE");
     // ShowSM(supermarket);
-
+    int flag = 0;
     while (1)
     {
         static int var = 0;
-        int flag = 0;
+
         if (var == 0)
             logging(logging_file, __FUNCTION__, "Starting Simulation");
         // break;
         // printf("1111111111111111111111111111111\n");
         //  BREAKING IN THE FUNCTION RUN SOMEWHERE!!!!!!
+        if(flag==1)
+            break;
         run(supermarket, flag);
 
         if (kbhit())
@@ -68,10 +77,10 @@ pessoas devem ser distribuídas pelas restantes caixas;
         if (localtime(&timeToClose)->tm_hour == 23)
         {
             printf("It's time to close the supermarket... no more clients able to enter...");
-            /*something more to deal with the clients in the queue here.... */
             flag = 1;
             logging(logging_file, __FUNCTION__, "Closing Supermarket");
         }
+        printf("=================================================================================\n");
         /*
         if(var== 101)
             break; */
@@ -81,6 +90,7 @@ pessoas devem ser distribuídas pelas restantes caixas;
 
     // ShowHASHING(supermarket->clientsHash);
     // ShowLG(supermarket->caixas, ShowCaixa);
+    logging_metrics(metrics_file, supermarket);
     FreeMem(supermarket);
 
     logging(logging_file, __FUNCTION__, "Ending Simulation");
@@ -272,7 +282,7 @@ int cmpChar(const void *a, const void *b)
  * @see ShowCaixa()                                                                                 *
  * @see ShowLG()                                                                                    *
  * @see beautify()                                                                                  *
- * @see trasverseBoxesForInstantClose()                                                             *
+ * @see traverseBoxesForInstantClose()                                                              *
  * @see FreeMem()                                                                                   *
  * @see sleep()                                                                                     *
  * @return None.                                                                                    *
@@ -290,8 +300,8 @@ void menu(SM *sm)
         printf("###   $<1> Show information in Supermarket\n");
         printf("###   $<2> Open a new box\n");
         printf("###   $<3> Close box\n");
-        printf("###   $<4> Somesomesomesomesome\n");
-        printf("###   $<5> Additional Options\n");
+        printf("###   $<4> Check the time it is\n");
+        printf("###   $<5> Show Products tree and hash table of clients\n");
         printf("###   $<9> Shutdown current simulation\n");
         printf("###   $<0> Exit the menu and return the flow control to run\n");
         printf("\n\n\t <Enter your choice>: ");
@@ -316,7 +326,9 @@ void menu(SM *sm)
             printf("You selected Option 2 - Open new Box \n");
             void *ptr = getClosed(sm->caixas);
             openCaixa(ptr);
-            setRandomEmployee(ptr, sm->employees);
+            BOX *B = (BOX *)ptr;
+            if (B->funcionario == NULL)
+                setRandomEmployee(ptr, sm->employees);
             ShowCaixa(ptr);
             sm->open++;
             printf("NEW BOX OPENENED, From the menu options...\n");
@@ -341,30 +353,37 @@ void menu(SM *sm)
             }
             if (flag)
             {
-                trasverseBoxesForInstantClose(sm, c);
+                traverseBoxesForInstantClose(sm, c);
                 printf("Box was closed successfully\n");
             }
 
             else
-                printf("Option entered was incorrect....");
+                printf("\nOption entered was incorrect....\n");
             // Perform action for Option 3
             break;
         case 4:
             printf("You selected Option 4\n");
-            // Perform action for Option 3
+            time_t currentTime = VerTimeRelogio(&sm->ROLEX);
+            printf("CURRENT TIME: [%d]:[%d]:[%d]", localtime(&currentTime)->tm_hour, localtime(&currentTime)->tm_min, localtime(&currentTime)->tm_sec);
+            //Perform action for Option 3
             break;
         case 5:
             printf("You selected Option 5\n");
+            printf("TREE\n");
+            InOrder(sm->prodTree);
+            printf("HASH TABLE\n");
+            ShowHASHING(sm->clientsHash);
             // Perform action for Option 3
             break;
         case 9:
             logging(logging_file, __FUNCTION__, "EXITING THE SIMULATION");
+            logging_metrics(metrics_file, sm);
             FreeMem(sm);
             exit(1);
         case 0:
             logging(logging_file, __FUNCTION__, "EXITING THE MENU->RETURNING FLOW CONTROL TO SIMULATION");
             printf("Exiting the menu and return the flow control to run...\n");
-            sleep(10);
+            sleep(2);
             break;
         default:
             logging(logging_file, __FUNCTION__, "INVALID CHOICE GIVEN");
@@ -374,6 +393,61 @@ void menu(SM *sm)
 
         printf("\n");
     } while (choice != 0);
+}
+
+/*********************************************************************************
+ * @brief Appends a log entry of the metrics of the simulation.                  *
+ *                                                                               *
+ * @param datafile : String representing the datafile                            *
+ * @param sm : a pointer to the supermarket                                      *
+ * @return None.                                                                 *
+ *********************************************************************************/
+void logging_metrics(char *datafile, SM *sm)
+{
+    if (!sm)
+        return;
+    if (datafile == NULL)
+        datafile = "default_metrics.txt";
+    // printf("%s",datafile);
+    FILE *F = fopen(datafile, "a");
+    if (!F)
+        return;
+    fprintf(F, "**[Simulation Metrics - Date:%s]**\n", __DATE__);
+    fprintf(F, "==================================\n");
+    fprintf(F, "[]Simulation End Time: [%s]\n", __TIME__);
+    fprintf(F, "[]Total costumers served: [%d]\n", sm->served);
+    fprintf(F, "[][]Per cashier Box plus extra metrics \n");
+    NODE *box_node = (NODE *)sm->caixas->head;
+    while(box_node)
+    {
+        BOX *b = (BOX *) box_node->info;
+        fprintf(F, "\t[+]BOX: [%c]\n", b->numero );
+        if(b->funcionario)
+        {
+            fprintf(F, "\t<>[**]Designated Employee: Identification:[%d]<=>Name:[%s]\n", b->funcionario->ID, b->funcionario->name);
+            fprintf(F, "\t   <>[+]Total costumers served: [%d]\n", b->served );
+            fprintf(F, "\t   <>[+]Total products sold: [%d]\n", (b->totalProducts - b->num_produtos_oferecidos) );
+            fprintf(F, "\t   <>[+]Total products offered: [%d] with total value: [%lf]\n", b->num_produtos_oferecidos, b->valor_produtos_oferecidos );
+        }
+        else fprintf(F, "\t[---]BOX DIDN'T OPENED...., NO INFORMATION TO BE LOGGED.\n");
+
+        box_node = box_node->next;
+    }
+    BOX *b = getServedMore(sm);
+    fprintf(F, "\n[ ]Statistics for better and worst\n");
+    fprintf(F, "\t[#]Cashier Box that attended more clients: [%c]\n", b->numero);
+    fprintf(F, "\t   >>>Served [%d] clients.\n", b->served);
+    fprintf(F, "\t\t[#][-]Employee: [%d]<=>[%s]\n", b->funcionario->ID, b->funcionario->name);
+    b = getSoldMore(sm);
+    fprintf(F, "\t[#]Cashier Box that sold more products: [%c]\n", b->numero);
+    int x = b->totalProducts - b->num_produtos_oferecidos;
+    fprintf(F, "\t   >>>Sold [%d] products.\n", x );
+    fprintf(F, "\t\t[#][-]Employee: [%d]<=>[%s]\n", b->funcionario->ID, b->funcionario->name);
+    Employee *e = getServedLess(sm);
+    fprintf(F, "\t[#]Employee who had the worst performance and served less clients:\n\t\t<>[$]Identification:[%d]<=>Name:[%s]\n\n",e->ID, e->name );
+    float average = sm->totalWaitingTime/(float) sm->served ;
+    fprintf(F, "[]Average waiting time in queue: [%.2f] minutes\n", average/60 );
+    fclose(F);
 }
 
 /*
