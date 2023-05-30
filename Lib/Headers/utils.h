@@ -82,9 +82,11 @@ void WaitSegundos(int s);
  * @param datafile : String representing the datafile                            *
  * @param funcname : String represening the name of the funciton                 *
  * @param info : String representing the descriptions of the log message         *
+ * @param time : current time in the supermarket
  * @return None.                                                                 *
  *********************************************************************************/
-void logging(char *datafile, const char *funcname, char *info);
+void logging(char *datafile, const char *funcname, char *info, time_t time);
+void logging2(char *datafile, const char *funcname, char *info );
 // A function to display an error message and then exit
 /****************************************************************************************
  * @brief Displays an error message and terminates the program.(NOT ANYMORE FOR NOW)    *

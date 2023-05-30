@@ -2,44 +2,19 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="Lib/utils.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/IO.c" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2528" topLine="0" />
+			<Cursor1 position="2930" topLine="4" />
 		</Cursor>
 	</File>
-	<File name="Lib/clients.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/Headers/produto.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="7060" topLine="265" />
+			<Cursor1 position="0" topLine="24" />
 		</Cursor>
 	</File>
-	<File name="Lib/Headers/hashing.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/queue.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1604" topLine="27" />
-		</Cursor>
-	</File>
-	<File name="Lib/Headers/supermercado.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="41732" topLine="399" />
-		</Cursor>
-	</File>
-	<File name="Lib/Headers/binarytree.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4121" topLine="24" />
-		</Cursor>
-	</File>
-	<File name="Lib/Headers/clients.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2228" topLine="33" />
-		</Cursor>
-	</File>
-	<File name="Lib/binarytree.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="230" />
-		</Cursor>
-	</File>
-	<File name="Lib/hashing.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3401" topLine="121" />
+			<Cursor1 position="496" topLine="16" />
 		</Cursor>
 	</File>
 	<File name="Lib/Headers/IO.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -47,39 +22,59 @@
 			<Cursor1 position="8880" topLine="59" />
 		</Cursor>
 	</File>
-	<File name="Lib/queue.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/utils.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="28" />
+			<Cursor1 position="1055" topLine="48" />
 		</Cursor>
 	</File>
-	<File name="Lib/Headers/queue.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/Headers/utils.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="33" />
+			<Cursor1 position="6889" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Lib/listaGenerica.c" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="main.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2449" topLine="70" />
+			<Cursor1 position="1336" topLine="27" />
 		</Cursor>
 	</File>
-	<File name="Lib/produto.c" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/Headers/queue.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6186" topLine="47" />
+		</Cursor>
+	</File>
+	<File name="Lib/Headers/supermercado.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="7535" topLine="90" />
+		</Cursor>
+	</File>
+	<File name="Lib/produto.c" open="0" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="77" />
 		</Cursor>
 	</File>
-	<File name="Lib/supermercado.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/hashing.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="10523" topLine="410" />
+			<Cursor1 position="3401" topLine="121" />
 		</Cursor>
 	</File>
-	<File name="Lib/caixa.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/clients.c" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2473" topLine="80" />
+			<Cursor1 position="108" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="Lib/Headers/listaGenerica.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/binarytree.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2128" topLine="29" />
+			<Cursor1 position="0" topLine="230" />
+		</Cursor>
+	</File>
+	<File name="Lib/Headers/clients.h" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="15131" topLine="176" />
+		</Cursor>
+	</File>
+	<File name="Lib/Headers/hashing.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1604" topLine="27" />
 		</Cursor>
 	</File>
 	<File name="Lib/Headers/funcionarios.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -87,29 +82,34 @@
 			<Cursor1 position="1962" topLine="18" />
 		</Cursor>
 	</File>
-	<File name="main.c" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/Headers/binarytree.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="19203" topLine="289" />
+			<Cursor1 position="4121" topLine="24" />
 		</Cursor>
 	</File>
-	<File name="Lib/Headers/utils.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/caixa.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5511" topLine="69" />
+			<Cursor1 position="5012" topLine="211" />
 		</Cursor>
 	</File>
-	<File name="Lib/IO.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/supermercado.c" open="1" top="1" tabpos="3" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="6492" topLine="180" />
+			<Cursor1 position="20644" topLine="689" />
 		</Cursor>
 	</File>
-	<File name="Lib/Headers/caixa.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/Headers/listaGenerica.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3068" topLine="36" />
+			<Cursor1 position="2128" topLine="29" />
 		</Cursor>
 	</File>
-	<File name="Lib/Headers/produto.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="Lib/listaGenerica.c" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="24" />
+			<Cursor1 position="2320" topLine="75" />
+		</Cursor>
+	</File>
+	<File name="Lib/Headers/caixa.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14803" topLine="77" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

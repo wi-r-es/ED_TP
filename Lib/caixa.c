@@ -58,11 +58,13 @@ void ShowCaixa(void *b)
     printf("\t[ ]NUMERO CAIXA: [%c]\n", B->numero);
     printf("\t[ ]STATUS: [%s]\n", B->status == 0 ? "FECHADA" : "ABERTA");
     printf("\t[ ]CLOSING STATUS: [%s]\n", B->closing == 0 ? "OPEN" : "CLOSING SOON");
+    printf("\t[ ]ATTENDING: [%s]\n", B->in_service == 0 ? "not" : "in SERVICE");
     // printf("error   #################################33\n");
     printf("\t[ ]FUNCIONARIO DA CAIXA: [%s]\n", B->funcionario == NULL ? "SEM FUNCIONARIO DESIGNADO" : "A IR BUSCAR INFORMACAO FUNCIONARIO");
     // printf("error   11111111111\n");
     if (B->funcionario && B->status)
         ShowEmployee(((void *)B->funcionario));
+    printf("\t[ ]QUEUE SIZE -> [%d]\n", queueSize(B->QUEUE));
     /*
 
     printf("error   222222\n");
@@ -120,12 +122,13 @@ int getService(void *b)
     BOX *B = (void *)b;
     return B->in_service;
 }
-void setService(void *b)
+void setService(void *b, void* C)
 {
     if (!b)
         return;
     BOX *B = (BOX *)b;
     B->in_service = 1;
+    B->auxiliary = C;
 }
 void unService(void *b)
 {
@@ -133,6 +136,7 @@ void unService(void *b)
         return;
     BOX *B = (BOX *)b;
     B->in_service = 0;
+    B->auxiliary=NULL;
 }
 int getClosingStatus(void *b)
 {
@@ -176,33 +180,7 @@ void setRandomEmployee(void *b, LG *lg)
         return;
     BOX *B = (BOX *)b;
     int pos = getRandomInt(0, lg->NEL - 1);
-    /*
-    NODE *aux = lg->head;
-    for(int i=0; i<pos; i++)
-    {
-         aux = aux->next;
-    }
-    return aux;
 
-    if (pos ==1 )
-    {
-        if(getStatusE(aux->info)==1)
-        {
-            setRandomEmployee(b,lg);
-            return;
-        }
-        setToWork(aux->info);
-        B->funcionario = aux->info;
-    }
-    else
-    {
-        int count =0;
-        while (aux && count < pos)
-        {
-            aux = aux->next;
-            count++;
-        }
-        */
     NODE *aux = getByPos(lg, pos);
     if (!aux)
     {
@@ -217,7 +195,6 @@ void setRandomEmployee(void *b, LG *lg)
     setToWork(aux->info);
     B->funcionario = aux->info;
 
-    // }
 }
 void addCash(BOX *b, double money)
 {

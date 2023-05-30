@@ -64,4 +64,16 @@ int enQueue(LG *lg, void *x);
  *****************************************************************************************************************************************/
 void *deQueue(LG *lg);
 
+
+/**********************************************************************************************************
+ * @brief Gets the tail of the  given queue.                                                              *
+ *                                                                                                        *
+ *        It removes the tail of the queue, and adjust the pointers, then return the previous tail.       *
+ *                                                                                                        *
+ * @param lg : Pointer to LL queue.( Type LG*)                                                            *
+ * @see isEmptyQueue()                                                                                    *
+ * @return The tail of the queue, or NULL if a null pointer was given, or the queue was empty.            *
+ **********************************************************************************************************/
+void *getTail(LG *lg);
+
 #endif // QUEUE_H_INCLUDED

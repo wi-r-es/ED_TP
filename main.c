@@ -3,7 +3,8 @@
 #include "Lib/Headers/supermercado.h"
 #include "Lib/Headers/hashing.h"
 
-extern void logging(char *datafile, const char *funcname, char *info);
+extern void logging2(char *datafile, const char *funcname, char *info);
+extern void logging(char *datafile, const char *funcname, char *info, time_t time);
 extern char *logging_file;
 extern int getRandomInt(int min, int max);
 
@@ -28,39 +29,22 @@ int main()
     srand(time(NULL));
     clock_t start_t, end_t;
     start_t = clock();
-
-    // printf("\nDEABUG !!!!!!");
     SM *supermarket = INIT__();
-    /*
-        Client *x= CriarClient(33, "Vitor Lafas");
-        int p = FuncaoHASHING(supermarket->clientsHash, x);
-        printf("\nPOSI->[%d]\n\n", p);
-        //printf("\nlalalalalaa !!!!!!");
-    */
     OpenSuperMarket(supermarket);
-
-    // InOrder(supermarket->prodTree);
-    // printf("SIM ENTRANCE");
-    // ShowSM(supermarket);
-    int flag = 0;
+    int flag = 0; //flag para fechar supermercado
     while (1)
     {
         static int var = 0;
 
         if (var == 0)
-            logging(logging_file, __FUNCTION__, "Starting Simulation");
-        // break;
-        // printf("1111111111111111111111111111111\n");
-        //  BREAKING IN THE FUNCTION RUN SOMEWHERE!!!!!!
-        if(flag==1)
+            logging2(logging_file, __FUNCTION__, "Starting Simulation");
+        if(flag==1 && supermarket->Population==0)
             break;
         run(supermarket, flag);
 
         if (kbhit())
         {
             menu(supermarket);
-            //  char option = getchar();
-            // ENTER TO THE MENU FUCNTION...
         }
 
         /**
@@ -69,7 +53,6 @@ int main()
          Num dado instante pode acontecer que uma caixa tenha de fechar, então as
 pessoas devem ser distribuídas pelas restantes caixas;
         **/
-        // break;
         printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
         printf("\r\n\t-----> static var : %d\n\n", var);
         var++;
@@ -78,32 +61,20 @@ pessoas devem ser distribuídas pelas restantes caixas;
         {
             printf("It's time to close the supermarket... no more clients able to enter...");
             flag = 1;
-            logging(logging_file, __FUNCTION__, "Closing Supermarket");
+            logging2(logging_file, __FUNCTION__, "Closing Supermarket");
         }
         printf("=================================================================================\n");
-        /*
-        if(var== 101)
-            break; */
-        // break;
     }
-    printf("\n\n##################");
-
-    // ShowHASHING(supermarket->clientsHash);
-    // ShowLG(supermarket->caixas, ShowCaixa);
+    beautify("SIMULATION ENDED :)) !");
+    printf("\n Total Clients Served: [%d]\n", supermarket->served);
     logging_metrics(metrics_file, supermarket);
     FreeMem(supermarket);
-
-    logging(logging_file, __FUNCTION__, "Ending Simulation");
-
-    printf("\vHello world!\n");
+    logging2(logging_file, __FUNCTION__, "Ending Simulation");
     end_t = clock();
     double total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
     char str[50];
     sprintf(str, "Time to execute->%lf", total_t);
-    // har *s="Time to execute->";
-    // strcat(s,str);
-    logging(logging_file, str, "TOTAL TIME OF EXECUTION");
-
+    logging2(logging_file, str, "TOTAL TIME OF EXECUTION");
     return 0;
 }
 
@@ -128,7 +99,7 @@ pessoas devem ser distribuídas pelas restantes caixas;
  *********************************************************************************************************************************************************************/
 void LoadConfigs(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX, char *l)
 {
-    logging(logging_file, __FUNCTION__, "Loading supermarket configs\n");
+    logging2(logging_file, __FUNCTION__, "Loading supermarket configs\n");
     printf("Loading clients from file\n");
     Load_Client(C, l);
     printf("Loading employees from file\n");
@@ -137,7 +108,7 @@ void LoadConfigs(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGene
     Load_Produtos(P);
     printf("generating boxes\n");
     GenerateBoxes(CX);
-    logging(logging_file, __FUNCTION__, "Supermarket configs loaded");
+    logging2(logging_file, __FUNCTION__, "Supermarket configs loaded");
 }
 
 /**********************************************************************************************************************************************************
@@ -155,12 +126,12 @@ void LoadConfigs(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGene
  **********************************************************************************************************************************************************/
 SM *LoadSuper(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGenerica *CX, HASHING *hc, treeNode *r)
 {
-    logging(logging_file, __FUNCTION__, "Creating Supermarket struct");
+    logging2(logging_file, __FUNCTION__, "Creating Supermarket struct");
     char *sm_name = "SUPERMERCADOS NOVA";
     printf("Creating super from LL\n\n\n");
     SM *s = CriarSM(sm_name, C, F, P, CX, hc, r);
+    logging2(logging_file, __FUNCTION__, "Created");
     return s;
-    logging(logging_file, __FUNCTION__, "Created");
 }
 
 /****************************************************************************************************************************************************************************************************
@@ -182,49 +153,28 @@ SM *LoadSuper(ListaGenerica *C, ListaGenerica *F, ListaGenerica *P, ListaGeneric
  ****************************************************************************************************************************************************************************************************/
 SM *INIT__()
 {
-    logging(logging_file, __FUNCTION__, "Initializing Supermarket");
+    logging2(logging_file, __FUNCTION__, "Initializing Supermarket");
     // Initializing vars to use during simulation
     ListaGenerica *LC = CriarLG();
     ListaGenerica *LF = CriarLG();
     ListaGenerica *LP = CriarLG();
     ListaGenerica *LCX = CriarLG();
-
     // variable to compute hash later
     char *letras = malloc(27 * sizeof(char));
     LoadConfigs(LC, LF, LP, LCX, letras);
     // sort the array
     qsort(letras, strlen(letras), sizeof(char), cmpChar); /**< sorts the string/array_of_chars based on its size, so the hashtable is created in alphabetic order */
-    logging(logging_file, __FUNCTION__, "Creating Hashtable for clients");
+    logging2(logging_file, __FUNCTION__, "Creating Hashtable for clients");
     HASHING *hash_table = CriarHASHING(letras); /**< creates the hashtable based on the sorted string of unique initials, so its quicker to search/get a client */
-    // for(int i=0; i<strlen(letras)+1; i++){
-    // printf("LETRAS in string : [%c]\n", letras[i]);}
     free(letras);                              /**< frees that memory regarding the string of initials since its now obsolete */
     LoadHashingFromLinkedList(hash_table, LC); /**< Loads the previously created hashtable with the elements in the Clients list */
-    logging(logging_file, __FUNCTION__, "Creating binary tree (AVL) for products");
+    logging2(logging_file, __FUNCTION__, "Creating binary tree (AVL) for products");
     treeNode *_root = CreateTree(LP); /**< Creates and loads the tree from the products list */
     SM *sm = LoadSuper(LC, LF, LP, LCX, hash_table, _root);
     // ShowHASHING(sm->clientsHash);
     return sm;
 }
 
-// void simulateEntrance()
-// printf("%d --> %d", random->ID, random->height);
-
-// InOrder(root);
-// ShowProduct(LP->head->info);
-/*
-    printf("\n\r[%d]#", strlen(letras));
-    for(int i=0; i< strlen(letras); i++){
-        printf("\n\r[%c]#", letras[i]);
-    }
-*/
-
-// void *ptr = LC->head->info;
-// ShowClient(ptr);
-// AddHASHING(hash_table, ptr);
-// ShowHASHING(hash_table);
-
-// ShowLG(LC, ShowClient);
 /**************************************************
  * @brief Free all dynamic memory in the program  *
  * @see logging()                                 *
@@ -234,7 +184,7 @@ SM *INIT__()
  **************************************************/
 int FreeAllMemory(SM *s)
 {
-    logging(logging_file, __FUNCTION__, "Freeing all memory");
+    logging2(logging_file, __FUNCTION__, "Freeing all memory");
     DestruirSM(s);
     return 1;
 }
@@ -248,9 +198,9 @@ void FreeMem(SM *sm)
 {
     int r = FreeAllMemory(sm);
     if (r)
-        logging(logging_file, __FUNCTION__, "Memory Freed");
+        logging2(logging_file, __FUNCTION__, "Memory Freed");
     else
-        logging(logging_file, __FUNCTION__, "Error while Freeing all memory");
+        logging2(logging_file, __FUNCTION__, "Error while Freeing all memory");
 }
 
 /*****************************************************************************************
@@ -290,7 +240,8 @@ int cmpChar(const void *a, const void *b)
 void menu(SM *sm)
 {
     int choice;
-    logging(logging_file, __FUNCTION__, "ACCESSED");
+    time_t time = VerTimeRelogio(&sm->ROLEX);
+    logging(logging_file, __FUNCTION__, "ACCESSED", time);
     while ((getchar()) != '\n')
         ;
 
@@ -305,24 +256,20 @@ void menu(SM *sm)
         printf("###   $<9> Shutdown current simulation\n");
         printf("###   $<0> Exit the menu and return the flow control to run\n");
         printf("\n\n\t <Enter your choice>: ");
-        // scanf("%d", &choice);
         fflush(stdin);
-        // getchar();
-        // choice = getchar();
         scanf("%d", &choice);
         fflush(stdin);
-        while ((getchar()) != '\n')
-            ;
+        while ((getchar()) != '\n');
         printf("CHOICE -> %c\n", choice);
         switch (choice)
         {
         case 1:
             printf("You selected Option 1 - Show Supermarket information\n");
             ShowSM(sm);
-            logging(logging_file, __FUNCTION__, "SHOWING SUPERMARKET");
+            logging(logging_file, __FUNCTION__, "SHOWING SUPERMARKET", time);
             break;
         case 2:
-            logging(logging_file, __FUNCTION__, "OPENING NEW BOX");
+            logging(logging_file, __FUNCTION__, "OPENING NEW BOX",time);
             printf("You selected Option 2 - Open new Box \n");
             void *ptr = getClosed(sm->caixas);
             openCaixa(ptr);
@@ -335,7 +282,7 @@ void menu(SM *sm)
 
             break;
         case 3:
-            logging(logging_file, __FUNCTION__, "CLOSING A BOX");
+            logging(logging_file, __FUNCTION__, "CLOSING A BOX",time);
             printf("You selected Option 3 - Close Box\n");
             ShowLG(sm->caixas, ShowOpenCaixa);
             beautify("PLEASE READ INSTRUCTION BELOW CAREFULLY!");
@@ -376,17 +323,17 @@ void menu(SM *sm)
             // Perform action for Option 3
             break;
         case 9:
-            logging(logging_file, __FUNCTION__, "EXITING THE SIMULATION");
+            logging(logging_file, __FUNCTION__, "EXITING THE SIMULATION",time);
             logging_metrics(metrics_file, sm);
             FreeMem(sm);
             exit(1);
         case 0:
-            logging(logging_file, __FUNCTION__, "EXITING THE MENU->RETURNING FLOW CONTROL TO SIMULATION");
+            logging(logging_file, __FUNCTION__, "EXITING THE MENU->RETURNING FLOW CONTROL TO SIMULATION",time);
             printf("Exiting the menu and return the flow control to run...\n");
             sleep(2);
             break;
         default:
-            logging(logging_file, __FUNCTION__, "INVALID CHOICE GIVEN");
+            logging(logging_file, __FUNCTION__, "INVALID CHOICE GIVEN",time);
             printf("Invalid choice. Please try again.\n");
             break;
         }
@@ -449,25 +396,3 @@ void logging_metrics(char *datafile, SM *sm)
     fprintf(F, "[]Average waiting time in queue: [%.2f] minutes\n", average/60 );
     fclose(F);
 }
-
-/*
-int key= 129617;
-void *ptr =&key;
-void *xx = SearchLG(LC, ptr, SearchClient);
-ShowClient(xx);
-*/
-/*
-int key= 7547;
-void *ptr =&key;
-void *xx = SearchLG(LF, ptr, SearchEmployee);
-ShowEmployee(xx);
-
-//key= 50825;
-
-//void *ptr =&key;
-void *yy = SearchLG(LP, ptr, SearchProduct);
-ShowProduct(yy);
-*/
-
-// char *str="Ola o mew nome e pedro";
-// char *n = (char *) ec_malloc (strlen(str)+1);

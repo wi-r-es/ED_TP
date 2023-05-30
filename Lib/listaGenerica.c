@@ -1,24 +1,24 @@
 #include "Headers/listaGenerica.h"
 
 extern void *ec_malloc(unsigned int size);
-extern void logging(char *datafile, const char *funcname, char *info);
+extern void logging2(char *datafile, const char *funcname, char *info);
 extern char *logging_file;
 
 ListaGenerica *CriarLG()
 {
-    logging(logging_file, __FUNCTION__, "Creating genericList");
+    logging2(logging_file, __FUNCTION__, "Creating genericList");
     ListaGenerica *L = (ListaGenerica *)ec_malloc(sizeof(ListaGenerica));
     if (!L)
         return NULL;
     L->head = NULL;
     L->tail = NULL;
     L->NEL = 0;
-    logging(logging_file, __FUNCTION__, "GenericList Created");
+    logging2(logging_file, __FUNCTION__, "GenericList Created");
     return L;
 }
 void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t) // fdest pointer to function
 {                                                                // one to remove the nodes info aswell 0 to just remove the nodes of the list
-    logging(logging_file, __FUNCTION__, "Deleting genericList");
+    logging2(logging_file, __FUNCTION__, "Deleting genericList");
     if (!lg)
         return;
     NODE *p = lg->head;
@@ -32,12 +32,12 @@ void DestruirLG(ListaGenerica *lg, void (*fdest)(void *), int t) // fdest pointe
         p = aux;
     }
     free(lg);
-    logging(logging_file, __FUNCTION__, "GenericList Deleted");
+    logging2(logging_file, __FUNCTION__, "GenericList Deleted");
 }
 
 void ShowLG(ListaGenerica *lg, void (*f)(void *))
 {
-    logging(logging_file, __FUNCTION__, "Showing genericList");
+    logging2(logging_file, __FUNCTION__, "Showing genericList");
     if (!lg)
     {
         printf("DEBUG");
@@ -50,7 +50,7 @@ void ShowLG(ListaGenerica *lg, void (*f)(void *))
         f(p->info);
         p = p->next;
     }
-    logging(logging_file, __FUNCTION__, "Showing genericList sucessfull");
+    logging2(logging_file, __FUNCTION__, "Showing genericList sucessfull");
 }
 
 void AddLGInicio(ListaGenerica *lg, void *X) // Adiciona elementos segundo uma pilha/stack
@@ -88,6 +88,7 @@ void AddLGFim(LG *lg, void *x) // Adicionar no fim
         while (iterator->next)
             iterator = iterator->next;
         iterator->next = aux;
+        aux->prev=iterator;
         lg->tail = aux;
     }
     lg->NEL++;

@@ -2,7 +2,7 @@
 
 extern void *ec_malloc(unsigned int size);
 int getRandomInt(int min, int max);
-extern void logging(char *datafile, const char *funcname, char *info);
+extern void logging2(char *datafile, const char *funcname, char *info);
 extern char *logging_file;
 
 Client *CriarClient(char *_id, char *_name)
@@ -144,6 +144,7 @@ void unqueued(void *c, time_t time)
     if (!c)
         return;
     CLIENTE *C = (CLIENTE *)c;
+    C->inqueue=0;
     C->paying = 1;
     C->waiting = time;
 }
@@ -279,6 +280,7 @@ void removeByID(LG *lg, char *_id)
         {
             //printf("client foun 11111111111\n");
             //ShowClient(p->info);
+
             aux = p;
             if (prev == NULL)                  /**< Fixes the pointers so its all good after deletion */
             {
@@ -296,7 +298,7 @@ void removeByID(LG *lg, char *_id)
             free(aux);
             lg->NEL--;
             //printf("client del 11111111111\n");
-            logging(logging_file, __FUNCTION__, "Removed Client from LL.");
+            logging2(logging_file, __FUNCTION__, "Removed Client from LL.");
             return;
         }
         //printf("SEARCHING  CLIENT 222222222222\n");

@@ -10,18 +10,18 @@ char *employees_file = "Files/I/funcionarios.txt";
 char *products_file = "Files/I/produtos.txt";
 #endif
 
-extern void logging(char *datafile, const char *funcname, char *info);
+extern void logging2(char *datafile, const char *funcname, char *info);
 extern char *logging_file;
 extern void fatal(char *message);
 
 void Load_Client(LG *LC, char *letras)
 {
-    logging(logging_file, __FUNCTION__, "Loading clients from file");
+    logging2(logging_file, __FUNCTION__, "Loading clients from file");
     FILE *F = fopen(clients_file, "r");
     // printf("%p",F);
     if (!F)
     {
-        logging(logging_file, __FUNCTION__, "Failed to Load from file");
+        logging2(logging_file, __FUNCTION__, "Failed to Load from file");
         return;
     }
     // char letras[27];
@@ -83,16 +83,16 @@ void Load_Client(LG *LC, char *letras)
     }
     letras[letra_count] = '\0';
     fclose(F);
-    logging(logging_file, __FUNCTION__, "Clients loaded");
+    logging2(logging_file, __FUNCTION__, "Clients loaded");
 }
 
 void Load_Funcionario(LG *LF)
 {
-    logging(logging_file, __FUNCTION__, "Loading employees from file");
+    logging2(logging_file, __FUNCTION__, "Loading employees from file");
     FILE *F = fopen(employees_file, "r");
     if (!F)
     {
-        logging(logging_file, __FUNCTION__, "Failed to Load from file");
+        logging2(logging_file, __FUNCTION__, "Failed to Load from file");
         return;
     }
 
@@ -125,17 +125,17 @@ void Load_Funcionario(LG *LF)
         AddLGFim(LF, E);
     }
     fclose(F);
-    logging(logging_file, __FUNCTION__, "Employees loaded");
+    logging2(logging_file, __FUNCTION__, "Employees loaded");
 }
 void Load_Produtos(LG *LP)
 {
-    logging(logging_file, __FUNCTION__, "Loading products from file");
+    logging2(logging_file, __FUNCTION__, "Loading products from file");
     // static var = 0;
     FILE *F = fopen(products_file, "r");
     // printf("%p",F);
     if (!F)
     {
-        logging(logging_file, __FUNCTION__, "Failed to Load from file");
+        logging2(logging_file, __FUNCTION__, "Failed to Load from file");
         return;
     }
 
@@ -217,7 +217,7 @@ void Load_Produtos(LG *LP)
         // printf("[%d]", var);
     }
     fclose(F);
-    logging(logging_file, __FUNCTION__, "Products loaded");
+    logging2(logging_file, __FUNCTION__, "Products loaded");
     // printf("[%d]", var);
 }
 

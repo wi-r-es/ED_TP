@@ -406,6 +406,33 @@ void caixaClose(SM *sm, void *b);
  ************************************************************************************************************************************/
 void run(SM *sm, int flag);
 
+
+
+
+
+
+/***********************************************************************************************************************
+ * @brief A client changes queues, to a queue with fewer clients                                                       *
+ *                                                                                                                     *
+ *        Traverse the boxes list and selects the queue with most clients and the queue with fewer clients.            *
+ *        Then it replaces the client from one queue to another.                                                       *
+ *                                                                                                                     *
+ * @param sm : a pointer to the SM structure.                                                                          *
+ * @see logging()                                                                                                      *
+ * @see queueSize()                                                                                                    *
+ * @see getClosingStatus()                                                                                             *
+ * @see getStatus()                                                                                                    *
+ * @see getTail()                                                                                                      *
+ * @see getBoxLesserQueue()                                                                                            *
+ * @see AddtoQueue()                                                                                                   *
+ * @return Pointer to box that served the most clients. NULL if given a null pointer as parameter or no boxes exist.   *
+ ***********************************************************************************************************************/
+void changeQueues(SM *sm);
+
+
+
+
+
 /***********************************************************************************************************************
  * @brief Retrieves the box that has served the most clients in the supermarket simulation.                            *
  *                                                                                                                     *
@@ -438,5 +465,12 @@ Employee *getServedLess(SM *sm);
  * @return Pointer to box that sold the most products. NULL if given a null pointer as parameter or no boxes exist.    *
  ***********************************************************************************************************************/
 BOX *getSoldMore(SM *sm);
+
+
+
+
+void ClosingSuper(SM *sm);
+
+
 
 #endif // SUPERMERCADO_H_INCLUDED

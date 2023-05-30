@@ -146,7 +146,7 @@ int getService(void *b);
  * @param b : a pointer to a BOX struct/element. (Type void*).                                                                                           *
  * @return None.                                                                                                                                         *
  *********************************************************************************************************************************************************/
-void setService(void *b);
+void setService(void *b, void* C);
 
 /*********************************************************************************************************************************************************
  * @brief Sets the value of the in_service field of a given Box struct/elemen to 0.                                                                      *

@@ -48,7 +48,21 @@ void Wait(int s)
 // #################################################################
 
 // Logging function
-void logging(char *datafile, const char *funcname, char *info)
+void logging(char *datafile, const char *funcname, char *info, time_t time)
+{
+    if (!funcname || !info)
+        return;
+    if (datafile == NULL)
+        datafile = "default.csv";
+    // printf("%s",datafile);
+    FILE *F = fopen(datafile, "a");
+    if (!F)
+        return;
+    fprintf(F, "%s, [%s],[EXECUTING_FUNCTION]: %s,[SHORT-BRIEF]: %s\n", __DATE__, asctime(localtime(&time)), funcname, info);
+    fclose(F);
+}
+
+void logging2(char *datafile, const char *funcname, char *info )
 {
     if (!funcname || !info)
         return;
@@ -61,8 +75,6 @@ void logging(char *datafile, const char *funcname, char *info)
     fprintf(F, "%s,%s,[EXECUTING_FUNCTION]: %s,[SHORT-BRIEF]: %s\n", __DATE__, __TIME__, funcname, info);
     fclose(F);
 }
-
-
 // A function to display an error message and then exit
 void fatal(char *message)
 {

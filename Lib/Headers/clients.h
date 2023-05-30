@@ -225,10 +225,4 @@ void takeFromWallet(Client *C, double amount);
  ***********************************************************************************************************************/
 void removeByID(LG *lg, char *_id);
 
-
-//void AddTimeCompra(void *c, float needed_time);
-
-// void EntrarSuper(void *c);
-// int PertenceClient(CLIENTE *c, void *X, int (*fcomp)(void *, void *));
-
 #endif // CLIENTS_H_INCLUDED
